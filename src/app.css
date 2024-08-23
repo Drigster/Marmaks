@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: 'Nunito Sans', sans-serif;
+	src: url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
+}
+
+:root {
+	--primary: rgb(29, 58, 109);
+	--secondary: rgb(163, 163, 163);
+	--accent: rgb(29, 58, 109);
+	--background: rgb(243, 245, 250);
+}
+
+body {
+	background-color: var(--background);
+	font-family: 'Nunito Sans', sans-serif;
+	color: var(--primary);
+	scroll-behavior: smooth;
+
+	min-height: 100vh;
+	min-height: 100svh;
+}
+
+.card0 {
+	position: relative;
+	align-items: center;
+	background-color: var(--primary);
+	padding: 10px;
+	border-radius: 0px 20px 20px 0px;
+}
+
+.card1 {
+	position: relative;
+	right: 0;
+	align-items: center;
+	background-color: var(--primary);
+	padding: 10px;
+	border-radius: 20px 0px 0px 20px;
+}
+
+.text-xxs {
+	font-size: 0.5rem
+		/* 12px */
+	;
+	line-height: 0.75rem
+		/* 16px */
+	;
+}
+
+.myShadow {
+	box-shadow:
+		rgba(17, 17, 26, 0.1) 0px 4px 16px,
+		rgba(17, 17, 26, 0.1) 0px 8px 24px,
+		rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+#snackbar {
+	/* By Default, Hidden */
+	visibility: hidden;
+	min-width: 250px;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	border-radius: 2px;
+	padding: 16px;
+	/* To always Keep on 
+     Top of screen */
+	position: fixed;
+
+	/* To be displayed above 
+     Parent HTML DOM element  */
+	z-index: 1;
+
+	/* Position Bottom Left 
+     Corner of Screen */
+	left: 10px;
+	bottom: 30px;
+}
+
+input::file-selector-button {
+	color: #000;
+}
+
+/* Dynamically Appending this 
+ Class to #snackbar via JS */
+.show-bar {
+	visibility: visible !important;
+	/* fadeout Time decided in 
+     accordance to Total Time */
+	/* In case, Time = 3s, 
+     fadeout 0.5s 2.5s */
+	animation:
+		fadein 0.5s,
+		fadeout 0.5s 4.5s;
+}
+
+/* when the Snackbar Appears */
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+/* when the Snackbar Disappears
+ from the Screen */
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+.authForm {
+	padding: 2.5rem;
+}
+
+.authForm>form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.authForm button {
+	background-color: var(--accent);
+	color: black;
+	font-size: 1.25rem;
+	padding: 0.75rem;
+	border-radius: 0.25rem;
+}
+
+.authForm button:active {
+	background-color: color-mix(in oklab, var(--accent) 80%, black 20%);
+}
+
+.inputBox {
+	position: relative;
+}
+
+.inputBox>input {
+	padding-inline: 0.75rem;
+	padding-top: 1.4rem;
+	padding-bottom: 0.35rem;
+	margin-inline: auto;
+	background-color: var(--background);
+	border-radius: 0.25rem;
+	width: 100%;
+}
+
+.inputBox>textarea {
+	padding-inline: 0.75rem;
+	padding-top: 1.4rem;
+	padding-bottom: 0.35rem;
+	margin-inline: auto;
+	background-color: var(--background);
+	border-radius: 0.25rem;
+	width: 100%;
+}
+
+.inputBox~.errorMessage {
+	position: absolute;
+	font-size: 0.9rem;
+	padding-left: 0.25rem;
+}
+
+.inputBox>label {
+	position: absolute;
+	left: 0;
+	padding-left: 0.75rem;
+	margin-block: 0.87rem;
+	color: var(--secondary);
+	transition: 0.5s;
+	pointer-events: none
+}
+
+.inputBox input:valid~label,
+.inputBox input:focus~label,
+.inputBox textarea:valid~label,
+.inputBox textarea:focus~label {
+	transform: translateY(-0.5rem);
+	font-size: 0.8em;
+	color: var(--primary);
+}
+
+.content-grid {
+	--padding-inline: 1rem;
+	--content-max-width: 1440px;
+	--breakout-max-width: 1920px;
+
+	--breakout-size: calc((var(--breakout-max-width) - var(--content-max-width)) / 2);
+
+	display: grid;
+	grid-template-columns:
+		[full-width-start] minmax(var(--padding-inline), 1fr) [breakout-start] minmax(0,
+			var(--breakout-size)) [content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width)) [content-end] minmax(0, var(--breakout-size)) [breakout-end] minmax(var(--padding-inline), 1fr) [full-width-end];
+
+	padding-top: 96px;
+}
+
+.content-grid:has(> .full-top:first-child),
+.content-grid.full-top {
+	padding-top: unset;
+}
+
+.content-grid> :not(.breakout, .full-width),
+.full-width> :not(.breakout, .full-width) {
+	grid-column: content;
+}
+
+.content-grid>.breakout {
+	grid-column: breakout;
+}
+
+.content-grid .full-width {
+	grid-column: full-width;
+
+	display: grid;
+	grid-template-columns: inherit;
+}
+
+.bg-blue-overlay {
+	border-image: fill 1 linear-gradient(hsl(from var(--primary) h s l / 0.8), hsl(from var(--primary) h s l / 0.8));
+}
+
+.my-tooltip {
+	--tooltip-background: var(--primary);
+	--tooltip-text: white;
+	--tooltip-arrow-size: 6px;
+	--__tooltip-scale: 0;
+
+	position: relative;
+}
+
+.my-tooltip::after,
+.my-tooltip::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	z-index: 99999;
+}
+
+.my-tooltip::after {
+	color: var(--tooltip-text);
+	background-color: var(--tooltip-background);
+	top: calc(var(--tooltip-arrow-size) * -1);
+	transform: translate(-50%, -100%) scale(var(--__tooltip-scale));
+	padding-block: 0.125em;
+	padding-inline: 0.25em;
+	font-size: 0.75em;
+	border-radius: 0.5rem;
+	width: max-content;
+	max-width: 120%;
+	transition: all 100ms;
+	transform-origin: bottom center;
+}
+
+.my-tooltip::before {
+	top: 0;
+	transform: translate(-50%, -50%) scale(var(--__tooltip-scale));
+	border: solid var(--tooltip-arrow-size) transparent;
+	border-top-color: var(--tooltip-background);
+	transition: all 100ms;
+	transform-origin: top center;
+}
+
+.my-tooltip-bottom::after,
+.my-tooltip-bottom::before {
+	top: unset;
+}
+
+.my-tooltip-bottom::after {
+	bottom: calc(var(--tooltip-arrow-size) * -1);
+	transform: translate(-50%, 100%) scale(var(--__tooltip-scale));
+	transform-origin: top center;
+}
+
+.my-tooltip-bottom::before {
+	bottom: 0;
+	border: solid var(--tooltip-arrow-size) transparent;
+	border-bottom-color: var(--tooltip-background);
+	transform: translate(-50%, 50%) scale(var(--__tooltip-scale));
+	transform-origin: bottom center;
+}
+
+.my-tooltip[aria-label]:hover::after {
+	content: attr(aria-label);
+}
+
+.my-tooltip[data-tooltip]:hover::after {
+	content: attr(data-tooltip);
+}
+
+.my-tooltip[aria-label]:hover::after,
+.my-tooltip[aria-label]:hover::before,
+.my-tooltip[data-tooltip]:hover::after,
+.my-tooltip[data-tooltip]:hover::before {
+	--__tooltip-scale: 1;
+}

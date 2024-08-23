@@ -1,0 +1,148 @@
+<script lang="ts">
+	import { Label, Input, CloseButton } from 'flowbite-svelte';
+	import { Search as Search } from '@o7/icon/remix';
+	import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms';
+	import spiner from '$lib/assets/spiner.svg';
+	import { Check, XMark, PencilSquare } from '@o7/icon/heroicons';
+
+	let { data }: { data: PageData } = $props();
+
+	const {
+		form: editForm,
+		enhance: editEnhance,
+		errors: editErrors,
+		delayed: editDelayed
+	} = superForm(data.editForm, {
+		clearOnSubmit: 'errors-and-message',
+		delayMs: 250,
+		timeoutMs: 8000
+	});
+
+	let valueEditing = $state(false);
+	let selectedValue = $state(-1);
+
+	let searchTerm = $state('');
+	let items = $derived(data.settingList);
+	let filteredItems = $derived(
+		items.filter((item) => item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)
+	);
+</script>
+
+<div class="p-10">
+	<div class="flex justify-between mb-2">
+		<Label class="space-y-2 max-w-96 w-full">
+			<Input type="email" placeholder="Поиск по названию" size="md" let:props>
+				<Search slot="left" />
+				<CloseButton
+					slot="right"
+					class={searchTerm.length > 0 ? '' : 'hidden'}
+					onclick={() => {
+						searchTerm = '';
+					}}
+				/>
+				<input type="text" {...props} bind:value={searchTerm} />
+			</Input>
+		</Label>
+	</div>
+	<div class="table rounded-xl">
+		<div class="row header text-xs font-semibold uppercase">
+			<span class="cell">Название</span>
+			<span class="cell">Значение</span>
+		</div>
+		{#each filteredItems as item, i}
+			<div>
+				<span class="py-[2px]">Никнейм</span>
+				<span class="flex gap-1">
+					{#if valueEditing && selectedValue == i}
+						<form class="inline-change-form" action="?/edit" method="POST" use:editEnhance>
+							<button type="submit" disabled style="display: none" aria-hidden="true"></button>
+							<input type="text" name="value" value={item.value} />
+							{#if $editDelayed}
+								<button class="change-icon-button" type="submit" disabled>
+									<img
+										class="h-full w-full"
+										width="20"
+										height="20"
+										src={spiner}
+										alt="Spiner icon"
+									/>
+								</button>
+							{:else}
+								<button class="change-icon-button" type="submit">
+									<Check class="h-full w-full" size="20" />
+								</button>
+							{/if}
+							<button
+								class="change-icon-button"
+								type="button"
+								onclick={() => {
+									valueEditing = false;
+									selectedValue = -1;
+								}}><XMark class="h-full w-full" size="20" /></button
+							>
+						</form>
+					{:else}
+						<span>
+							{item.value}
+						</span>
+						<button
+							type="button"
+							class="change-button"
+							onclick={() => {
+								selectedValue = i;
+								valueEditing = true;
+							}}
+						>
+							<PencilSquare />
+						</button>
+					{/if}
+				</span>
+				{#if $editErrors.value}
+					<span> </span>
+					<span class="errorMessage">
+						{$editErrors.value}
+					</span>
+				{/if}
+			</div>
+		{/each}
+	</div>
+</div>
+
+<style>
+	.table {
+		display: grid;
+		grid-template-columns: repeat(3, max-content) 1fr max-content;
+	}
+
+	.table > .row {
+		display: grid;
+		grid-template-columns: subgrid;
+		grid-column: span 5;
+		background-color: white;
+		border-bottom-width: 1px;
+	}
+
+	.table > .row:hover {
+		background-color: rgb(249, 250, 251);
+	}
+
+	.table > .header {
+		background-color: rgb(249, 250, 251);
+	}
+
+	.row > .cell {
+		padding-block: 1rem;
+		padding-inline: 1.5rem;
+		margin-block: auto;
+	}
+
+	.row > .image {
+		padding: 0.25rem;
+		margin: auto;
+	}
+
+	.header > .cell {
+		padding-block: 0.75rem;
+	}
+</style>

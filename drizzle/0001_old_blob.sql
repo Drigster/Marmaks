@@ -1,0 +1,1 @@
+ALTER TABLE `settings` ADD `name` text NOT NULL;
