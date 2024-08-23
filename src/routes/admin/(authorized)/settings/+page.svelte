@@ -2,7 +2,7 @@
 	import { Label, Input, CloseButton } from 'flowbite-svelte';
 	import { Search as Search } from '@o7/icon/remix';
 	import type { PageData } from './$types';
-	import { superForm } from 'sveltekit-superforms';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import spiner from '$lib/assets/spiner.svg';
 	import { Check, XMark, PencilSquare } from '@o7/icon/heroicons';
 
@@ -15,6 +15,10 @@
 		delayed: editDelayed
 	} = superForm(data.editForm, {
 		clearOnSubmit: 'errors-and-message',
+		onUpdated: () => {
+			valueEditing = false;
+			selectedValue = -1;
+		},
 		delayMs: 250,
 		timeoutMs: 8000
 	});
@@ -51,15 +55,16 @@
 			<span class="cell">Значение</span>
 		</div>
 		{#each filteredItems as item, i}
-			<div>
-				<span class="py-[2px]">Никнейм</span>
-				<span class="flex gap-1">
+			<div class="row">
+				<span class="cell">{item.name}</span>
+				<span class="cell">
 					{#if valueEditing && selectedValue == i}
 						<form class="inline-change-form" action="?/edit" method="POST" use:editEnhance>
-							<button type="submit" disabled style="display: none" aria-hidden="true"></button>
+							<input class="hidden" type="text" name="key" value={item.key} />
 							<input type="text" name="value" value={item.value} />
 							{#if $editDelayed}
-								<button class="change-icon-button" type="submit" disabled>
+								<button class="my-auto" type="submit" disabled>
+									spiner
 									<img
 										class="h-full w-full"
 										width="20"
@@ -69,12 +74,12 @@
 									/>
 								</button>
 							{:else}
-								<button class="change-icon-button" type="submit">
+								<button class="my-auto" type="submit">
 									<Check class="h-full w-full" size="20" />
 								</button>
 							{/if}
 							<button
-								class="change-icon-button"
+								class="my-auto"
 								type="button"
 								onclick={() => {
 									valueEditing = false;
@@ -87,23 +92,17 @@
 							{item.value}
 						</span>
 						<button
+							class="my-auto"
 							type="button"
-							class="change-button"
 							onclick={() => {
 								selectedValue = i;
 								valueEditing = true;
 							}}
 						>
-							<PencilSquare />
+							<PencilSquare size="20" />
 						</button>
 					{/if}
 				</span>
-				{#if $editErrors.value}
-					<span> </span>
-					<span class="errorMessage">
-						{$editErrors.value}
-					</span>
-				{/if}
 			</div>
 		{/each}
 	</div>

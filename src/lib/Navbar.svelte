@@ -45,10 +45,10 @@
 		<div class="nav-center">
 			<ul class="nav-list h-12">
 				<li class="nav-item"><a class="nav-link" href="/"><span>Главная</span></a></li>
-				<li class="nav-item"><a class="nav-link" href="/#categories">Продукция</a></li>
-				<li class="nav-item"><a class="nav-link" href="/#us_info">Фото работ</a></li>
+				<li class="nav-item"><a class="nav-link" href="/#products">Продукция</a></li>
+				<li class="nav-item"><a class="nav-link" href="/#about_us">Как работаем</a></li>
 				<li class="nav-item"><a class="nav-link" href="/#certificates">Сертификаты</a></li>
-				<li class="nav-item"><a class="nav-link" href="/contact">Как работаем</a></li>
+				<li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
 				<li class="nav-item lg:hidden">
 					<button
 						class="my-tooltip my-tooltip-bottom flex gap-2 nav-link mx-auto"

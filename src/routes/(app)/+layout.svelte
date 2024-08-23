@@ -6,7 +6,7 @@
 </script>
 
 <Navbar phone="+74951200912" email="info@marmakc.com" />
-<main class="content-grid gap-y-20">
+<main class="content-grid">
 	{@render children()}
 </main>
 <Footer />

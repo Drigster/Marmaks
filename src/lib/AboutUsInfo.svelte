@@ -9,7 +9,7 @@
 	} from '@o7/icon/heroicons';
 </script>
 
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-16 text-center place-items-center">
+<div id="about_us" class="grid grid-cols-1 xl:grid-cols-2 gap-16 text-center place-items-center">
 	<div class="flex flex-col items-center max-w-lg">
 		<LightBulb size="80" />
 		<span class="text-3xl font-bold mt-10 mb-4">Передовые технологии</span>

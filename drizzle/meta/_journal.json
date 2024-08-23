@@ -15,6 +15,13 @@
       "when": 1724420554736,
       "tag": "0001_old_blob",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1724433927311,
+      "tag": "0002_steep_the_watchers",
+      "breakpoints": true
     }
   ]
 }

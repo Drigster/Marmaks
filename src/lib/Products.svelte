@@ -2,7 +2,7 @@
 	import DividerTitle from './DividerTitle.svelte';
 </script>
 
-<div class="breakout slider">
+<div id="products" class="breakout slider">
 	<div class="slider-elements">
 		{#each { length: 3 } as _, i}
 			<div class="product">

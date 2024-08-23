@@ -12,7 +12,7 @@
 </script>
 
 <Footer footerType="socialmedia" class="bg-primary content-grid">
-	<div class="md:flex md:justify-between full-top">
+	<div class="md:flex md:justify-between">
 		<div class="mb-6 md:mb-0">
 			<FooterBrand href="/" src={LogoWhite} alt="Лого МАРМАКС" />
 			<p class="text-white mt-2">Работаем с 2018 года.</p>
@@ -48,12 +48,10 @@
 		</div>
 	</div>
 	<div class="sm:flex sm:items-center sm:justify-between">
-		<FooterCopyright href="/" by="МАРМАКС" copyrightMessage=""/>
+		<FooterCopyright href="/" by="МАРМАКС" copyrightMessage="" />
 		<div class="flex mt-4 space-x-6 rtl:space-x-reverse sm:justify-center sm:mt-0">
 			<FooterIcon href="/">
-				<Telegram2
-					class="w-5 h-5 text-white hover:opacity-50"
-				/>
+				<Telegram2 class="w-5 h-5 text-white hover:opacity-50" />
 			</FooterIcon>
 		</div>
 	</div>

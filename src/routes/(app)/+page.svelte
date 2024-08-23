@@ -11,7 +11,9 @@
 	<title>Главная | Мармакс</title>
 </svelte:head>
 
-<Hero {data} />
-<Categories />
-<AboutUsInfo />
-<Suppliers />
+<div class="full-width content-grid gap-y-20">
+	<Hero {data} />
+	<Categories />
+	<AboutUsInfo />
+	<Suppliers />
+</div>

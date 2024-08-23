@@ -15,7 +15,7 @@ export const load = async ({ cookies }) => {
 	const form = await superValidate(zod(schema));
 
 	if(cookies.get("token") != undefined){
-		redirect(303, "/admin/dashboard");
+		redirect(303, "/admin/products");
 	}
 
 	return { form };
@@ -50,6 +50,6 @@ export const actions = {
 
 		const token = jwt.sign({ user: ADMIN_LOGIN }, JWT_SECRET);
 		cookies.set("token", token, { path: "/" });
-		return redirect(303, '/admin/dashboard');
+		return redirect(303, '/admin/products');
 	}
 };
