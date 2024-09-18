@@ -2,18 +2,13 @@
 	import { Label, Input, CloseButton } from 'flowbite-svelte';
 	import { Search as Search } from '@o7/icon/remix';
 	import type { PageData } from './$types';
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import spiner from '$lib/assets/spiner.svg';
 	import { Check, XMark, PencilSquare } from '@o7/icon/heroicons';
 
 	let { data }: { data: PageData } = $props();
 
-	const {
-		form: editForm,
-		enhance: editEnhance,
-		errors: editErrors,
-		delayed: editDelayed
-	} = superForm(data.editForm, {
+	const { enhance: editEnhance, delayed: editDelayed } = superForm(data.editForm, {
 		clearOnSubmit: 'errors-and-message',
 		onUpdated: () => {
 			valueEditing = false;
@@ -134,11 +129,6 @@
 		padding-block: 1rem;
 		padding-inline: 1.5rem;
 		margin-block: auto;
-	}
-
-	.row > .image {
-		padding: 0.25rem;
-		margin: auto;
 	}
 
 	.header > .cell {

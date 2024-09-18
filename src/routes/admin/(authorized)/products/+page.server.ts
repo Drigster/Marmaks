@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 
 const createSchema = insertProductSchema.omit({ imageFilename: true }).extend({
 	image: z.instanceof(File, { message: 'Please upload a file.' })
-})
+});
 
 const deleteSchema = z.object({
 	id: z.number().int().positive()
@@ -21,13 +21,13 @@ const editSchema = createSchema.omit({ image: true, id: true }).extend({
 
 export const load = async () => {
 	const createForm = await superValidate(zod(createSchema), {
-		id: "create"
+		id: 'create'
 	});
 	const deleteForm = await superValidate(zod(deleteSchema), {
-		id: "delete"
+		id: 'delete'
 	});
 	const editForm = await superValidate(zod(createSchema), {
-		id: "edit"
+		id: 'edit'
 	});
 	const productList = await db.select().from(products).all();
 
@@ -42,10 +42,18 @@ export const actions = {
 			return fail(400, { createForm });
 		}
 
-		const filenameSplit = createForm.data.image.name.split(".");
-		const filename = Date.now() + "_" + Math.round(Math.random() * 10000) + "." + filenameSplit[filenameSplit.length - 1];
+		const filenameSplit = createForm.data.image.name.split('.');
+		const filename =
+			Date.now() +
+			'_' +
+			Math.round(Math.random() * 10000) +
+			'.' +
+			filenameSplit[filenameSplit.length - 1];
 
-		await writeFile(`static/files/${filename}`, new Uint8Array(await createForm.data.image.arrayBuffer()));
+		await writeFile(
+			`static/files/${filename}`,
+			new Uint8Array(await createForm.data.image.arrayBuffer())
+		);
 
 		await db.insert(products).values({
 			name: createForm.data.name,
@@ -53,7 +61,7 @@ export const actions = {
 			imageFilename: filename
 		});
 
-		return message(createForm, "Продукт создан");
+		return message(createForm, 'Продукт создан');
 	},
 
 	delete: async ({ request }) => {
@@ -62,10 +70,10 @@ export const actions = {
 		if (!deleteForm.valid) {
 			return fail(400, { deleteForm });
 		}
-		
-		const product = (await db.query.products.findFirst({
+
+		const product = await db.query.products.findFirst({
 			where: eq(products.id, deleteForm.data.id)
-		}))
+		});
 
 		await rm(`static/files/${product?.imageFilename}`, {
 			force: true
@@ -73,7 +81,7 @@ export const actions = {
 
 		await db.delete(products).where(eq(products.id, deleteForm.data.id));
 
-		return message(deleteForm, "Продукт удалён");
+		return message(deleteForm, 'Продукт удалён');
 	},
 
 	edit: async ({ request }) => {
@@ -83,32 +91,45 @@ export const actions = {
 			return fail(400, { editForm });
 		}
 
-		if(editForm.data.image != undefined){
-			const filenameSplit = editForm.data.image.name.split(".");
-			const filename = Date.now() + "_" + Math.round(Math.random() * 10000) + "." + filenameSplit[filenameSplit.length - 1];
+		if (editForm.data.image != undefined) {
+			const filenameSplit = editForm.data.image.name.split('.');
+			const filename =
+				Date.now() +
+				'_' +
+				Math.round(Math.random() * 10000) +
+				'.' +
+				filenameSplit[filenameSplit.length - 1];
 
-			const product = (await db.query.products.findFirst({
+			const product = await db.query.products.findFirst({
 				where: eq(products.id, editForm.data.id)
-			}))
+			});
 
 			await rm(`static/files/${product?.imageFilename}`, {
 				force: true
 			});
-			await writeFile(`static/files/${filename}`, new Uint8Array(await editForm.data.image.arrayBuffer()));
+			await writeFile(
+				`static/files/${filename}`,
+				new Uint8Array(await editForm.data.image.arrayBuffer())
+			);
 
-			await db.update(products).set({
-				name: editForm.data.name,
-				description: editForm.data.description,
-				imageFilename: filename,
-			}).where(eq(products.id, editForm.data.id));
-		}
-		else{
-			await db.update(products).set({
-				name: editForm.data.name,
-				description: editForm.data.description
-			}).where(eq(products.id, editForm.data.id));
+			await db
+				.update(products)
+				.set({
+					name: editForm.data.name,
+					description: editForm.data.description,
+					imageFilename: filename
+				})
+				.where(eq(products.id, editForm.data.id));
+		} else {
+			await db
+				.update(products)
+				.set({
+					name: editForm.data.name,
+					description: editForm.data.description
+				})
+				.where(eq(products.id, editForm.data.id));
 		}
 
-		return message(editForm, "Продукт изменён");
-	},
+		return message(editForm, 'Продукт изменён');
+	}
 };

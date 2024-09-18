@@ -47,7 +47,6 @@
 				<li class="nav-item"><a class="nav-link" href="/"><span>Главная</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="/#products">Продукция</a></li>
 				<li class="nav-item"><a class="nav-link" href="/#about_us">Как работаем</a></li>
-				<li class="nav-item"><a class="nav-link" href="/#certificates">Сертификаты</a></li>
 				<li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
 				<li class="nav-item lg:hidden">
 					<button
@@ -174,22 +173,6 @@
 	.nav-contact-button:hover {
 		background-color: var(--primary);
 		color: white;
-	}
-
-	/* TODO: Change to something  readable */
-	.addc {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.nav-item-stack {
-		display: flex;
-		flex-direction: column;
-		padding: 0.5rem;
-	}
-
-	.nav-item-stack {
-		padding: 0;
 	}
 
 	#nav-toggle {

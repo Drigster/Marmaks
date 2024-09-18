@@ -1,13 +1,12 @@
 import { db } from '$lib/database/db.js';
 import { settings } from '$lib/database/schema.js';
-import { type Settings } from "$lib/database/db"
 
 export const load = async () => {
 	const settingList = await db.select().from(settings).all();
-	let settingDict = {};
+	const settingDict = {} as any;
 
-	settingList.forEach(setting => {
-		settingDict[setting.key] = setting.value
+	settingList.forEach((setting) => {
+		settingDict[setting.key] = setting.value;
 	});
 
 	return { settingDict };

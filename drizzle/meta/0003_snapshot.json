@@ -1,8 +1,8 @@
 {
 	"version": "6",
 	"dialect": "sqlite",
-	"id": "45ddf1ee-57de-4dec-8d29-d57a404740a3",
-	"prevId": "00000000-0000-0000-0000-000000000000",
+	"id": "659ed101-116d-4053-b924-aca27df120ed",
+	"prevId": "5d520ea7-e179-4f1f-96bf-75dc0a702e58",
 	"tables": {
 		"products": {
 			"name": "products",
@@ -66,6 +66,13 @@
 				},
 				"value": {
 					"name": "value",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"name": {
+					"name": "name",
 					"type": "text",
 					"primaryKey": false,
 					"notNull": true,

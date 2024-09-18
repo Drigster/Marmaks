@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { o7Icon } from '@o7/icon/vite';
 
 export default defineConfig({
-	plugins: [sveltekit()]
+	plugins: [o7Icon(), sveltekit()]
 });

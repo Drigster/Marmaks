@@ -42,12 +42,8 @@ body {
 }
 
 .text-xxs {
-	font-size: 0.5rem
-		/* 12px */
-	;
-	line-height: 0.75rem
-		/* 16px */
-	;
+	font-size: 0.5rem /* 12px */;
+	line-height: 0.75rem /* 16px */;
 }
 
 .myShadow {
@@ -128,7 +124,7 @@ input::file-selector-button {
 	padding: 2.5rem;
 }
 
-.authForm>form {
+.authForm > form {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
@@ -150,7 +146,7 @@ input::file-selector-button {
 	position: relative;
 }
 
-.inputBox>input {
+.inputBox > input {
 	padding-inline: 0.75rem;
 	padding-top: 1.4rem;
 	padding-bottom: 0.35rem;
@@ -160,7 +156,7 @@ input::file-selector-button {
 	width: 100%;
 }
 
-.inputBox>textarea {
+.inputBox > textarea {
 	padding-inline: 0.75rem;
 	padding-top: 1.4rem;
 	padding-bottom: 0.35rem;
@@ -170,26 +166,26 @@ input::file-selector-button {
 	width: 100%;
 }
 
-.inputBox~.errorMessage {
+.inputBox ~ .errorMessage {
 	position: absolute;
 	font-size: 0.9rem;
 	padding-left: 0.25rem;
 }
 
-.inputBox>label {
+.inputBox > label {
 	position: absolute;
 	left: 0;
 	padding-left: 0.75rem;
 	margin-block: 0.87rem;
 	color: var(--secondary);
 	transition: 0.5s;
-	pointer-events: none
+	pointer-events: none;
 }
 
-.inputBox input:valid~label,
-.inputBox input:focus~label,
-.inputBox textarea:valid~label,
-.inputBox textarea:focus~label {
+.inputBox input:valid ~ label,
+.inputBox input:focus ~ label,
+.inputBox textarea:valid ~ label,
+.inputBox textarea:focus ~ label {
 	transform: translateY(-0.5rem);
 	font-size: 0.8em;
 	color: var(--primary);
@@ -204,8 +200,13 @@ input::file-selector-button {
 
 	display: grid;
 	grid-template-columns:
-		[full-width-start] minmax(var(--padding-inline), 1fr) [breakout-start] minmax(0,
-			var(--breakout-size)) [content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width)) [content-end] minmax(0, var(--breakout-size)) [breakout-end] minmax(var(--padding-inline), 1fr) [full-width-end];
+		[full-width-start] minmax(var(--padding-inline), 1fr) [breakout-start] minmax(
+			0,
+			var(--breakout-size)
+		)
+		[content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width))
+		[content-end] minmax(0, var(--breakout-size)) [breakout-end] minmax(var(--padding-inline), 1fr)
+		[full-width-end];
 
 	padding-top: 96px;
 }
@@ -215,12 +216,12 @@ input::file-selector-button {
 	padding-top: unset;
 }
 
-.content-grid> :not(.breakout, .full-width),
-.full-width> :not(.breakout, .full-width) {
+.content-grid > :not(.breakout, .full-width),
+.full-width > :not(.breakout, .full-width) {
 	grid-column: content;
 }
 
-.content-grid>.breakout {
+.content-grid > .breakout {
 	grid-column: breakout;
 }
 
@@ -232,7 +233,8 @@ input::file-selector-button {
 }
 
 .bg-blue-overlay {
-	border-image: fill 1 linear-gradient(hsl(from var(--primary) h s l / 0.8), hsl(from var(--primary) h s l / 0.8));
+	border-image: fill 1
+		linear-gradient(hsl(from var(--primary) h s l / 0.8), hsl(from var(--primary) h s l / 0.8));
 }
 
 .my-tooltip {
@@ -246,7 +248,7 @@ input::file-selector-button {
 
 .my-tooltip::after,
 .my-tooltip::before {
-	content: "";
+	content: '';
 	position: absolute;
 	left: 50%;
 	z-index: 99999;

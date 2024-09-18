@@ -1,9 +1,52 @@
 {
 	"version": "6",
 	"dialect": "sqlite",
-	"id": "45ddf1ee-57de-4dec-8d29-d57a404740a3",
-	"prevId": "00000000-0000-0000-0000-000000000000",
+	"id": "d301ce62-7c94-478d-b0bb-c6f5dce1ccfb",
+	"prevId": "659ed101-116d-4053-b924-aca27df120ed",
 	"tables": {
+		"certificates": {
+			"name": "certificates",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "integer",
+					"primaryKey": true,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"title": {
+					"name": "title",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"alt": {
+					"name": "alt",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"src": {
+					"name": "src",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				}
+			},
+			"indexes": {
+				"certificates_id_unique": {
+					"name": "certificates_id_unique",
+					"columns": ["id"],
+					"isUnique": true
+				}
+			},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		},
 		"products": {
 			"name": "products",
 			"columns": {
@@ -66,6 +109,13 @@
 				},
 				"value": {
 					"name": "value",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"name": {
+					"name": "name",
 					"type": "text",
 					"primaryKey": false,
 					"notNull": true,

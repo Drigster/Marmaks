@@ -5,7 +5,6 @@ export const users = sqliteTable('users', {
 	email: text('email').notNull(),
 	password: text('password').notNull()
 });
-
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
@@ -13,14 +12,12 @@ export type ProductImage = {
 	imagePath: string;
 	imageDescription: string;
 };
-
 export const products = sqliteTable('products', {
 	id: integer('id').primaryKey().notNull().unique(),
 	name: text('name').notNull(),
 	description: text('description').notNull(),
 	imageFilename: text('images').notNull()
 });
-
 export type Product = typeof products.$inferSelect;
 export type InsertProduct = typeof products.$inferInsert;
 
@@ -30,6 +27,14 @@ export const settings = sqliteTable('settings', {
 	value: text('value').notNull(),
 	name: text('name').notNull()
 });
-
 export type Setting = typeof settings.$inferSelect;
 export type InsertSetting = typeof settings.$inferInsert;
+
+export const certificates = sqliteTable('certificates', {
+	id: integer('id').primaryKey().notNull().unique(),
+	title: text('title').notNull(),
+	alt: text('alt').notNull(),
+	src: text('src').notNull()
+});
+export type Certificate = typeof certificates.$inferSelect;
+export type InsertCertificate = typeof certificates.$inferInsert;

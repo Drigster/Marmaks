@@ -1,6 +1,6 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ cookies }) => {
-    cookies.delete("token", { path: "/" });
-    return redirect(303, '/admin');
+	cookies.delete('token', { path: '/' });
+	return redirect(303, '/admin');
 };

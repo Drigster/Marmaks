@@ -1,6 +1,4 @@
 <script lang="ts">
-	import DividerTitle from './DividerTitle.svelte';
-
 	let supplierImageParrent: HTMLElement;
 
 	$effect(() => {

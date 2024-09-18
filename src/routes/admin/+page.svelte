@@ -19,7 +19,9 @@
 	class="min-h-screen bg-center bg-no-repeat bg-cover bg-blue-overlay flex"
 	style="background-image: url({backgroundImg1})"
 >
-	<Button class="absolute left-16 top-16 text-xl font-semibold" href="/"><ArrowLeftS size="32"/>Вернутся на главную</Button>
+	<Button class="absolute left-16 top-16 text-xl font-semibold" href="/"
+		><ArrowLeftS size="32" />Вернутся на главную</Button
+	>
 	<div class="authForm m-auto min-w-96 bg-background rounded-2xl">
 		<h2 class="text-center mx-auto uppercase text-3xl mb-8 text-accent font-bold">Вход</h2>
 		<form method="POST" use:enhance>

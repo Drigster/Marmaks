@@ -1,4 +1,4 @@
-import flowbitePlugin from 'flowbite/plugin'
+import flowbitePlugin from 'flowbite/plugin';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -9,11 +9,11 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				"primary": "var(--primary)",
-				"secondary": "var(--secondary)",
-				"accent": "var(--accent)",
-				"background": "var(--background)",
-				"base-100": "#fff"
+				primary: 'var(--primary)',
+				secondary: 'var(--secondary)',
+				accent: 'var(--accent)',
+				background: 'var(--background)',
+				'base-100': '#fff'
 			}
 		}
 	},

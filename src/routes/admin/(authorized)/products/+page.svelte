@@ -35,12 +35,7 @@
 		timeoutMs: 8000
 	});
 
-	const {
-		form: deleteForm,
-		enhance: deleteEnhance,
-		errors: deleteErrors,
-		delayed: deleteDelayed
-	} = superForm(data.deleteForm, {
+	const { enhance: deleteEnhance, delayed: deleteDelayed } = superForm(data.deleteForm, {
 		clearOnSubmit: 'errors-and-message',
 		onUpdated({ form }) {
 			if (form.valid) {
@@ -69,9 +64,9 @@
 
 	$effect(() => {
 		if (editModal) {
-			const item = items.find((item) => item.id == selectedItem)
-			if(item == undefined){
-				return
+			const item = items.find((item) => item.id == selectedItem);
+			if (item == undefined) {
+				return;
 			}
 			$editForm.id = item.id;
 			$editForm.name = item.name;
@@ -81,7 +76,7 @@
 
 	const file = fileProxy(createForm, 'image');
 
-	function handleFilesSelect(e: { detail: { acceptedFiles: any; }; }) {
+	function handleFilesSelect(e: { detail: { acceptedFiles: any } }) {
 		const { acceptedFiles } = e.detail;
 		$file = acceptedFiles[0];
 	}
@@ -274,7 +269,13 @@
 			>
 		</h3>
 		<form method="POST" action="?/delete" use:deleteEnhance>
-			<Button type="submit" color="red" class="me-2 px-6" name="id" value={items.find((item) => item.id == selectedItem)?.id}>
+			<Button
+				type="submit"
+				color="red"
+				class="me-2 px-6"
+				name="id"
+				value={items.find((item) => item.id == selectedItem)?.id}
+			>
 				<span class="relative">
 					Да, я уверен(а)!
 					<img
@@ -299,7 +300,7 @@
 	autoclose={false}
 	outsideclose
 >
-	<SuperDebug data={$editForm}/>
+	<SuperDebug data={$editForm} />
 	<form
 		class="flex flex-col gap-6"
 		method="POST"
@@ -375,7 +376,12 @@
 			{/if}
 		</Dropzone>
 
-		<Button type="submit" class="bg-primary p-3 rounded-[0.25rem]" name="id" value={items.find((item) => item.id == selectedItem)?.id}>
+		<Button
+			type="submit"
+			class="bg-primary p-3 rounded-[0.25rem]"
+			name="id"
+			value={items.find((item) => item.id == selectedItem)?.id}
+		>
 			<span class="relative">
 				Сохранить
 				<img
