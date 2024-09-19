@@ -5,9 +5,10 @@
 		FooterLinkGroup,
 		FooterLink,
 		FooterBrand,
-		FooterIcon
+		FooterIcon,
+		Button
 	} from 'flowbite-svelte';
-	import { Telegram2 } from '@o7/icon/remix';
+	import { Github } from '@o7/icon/remix';
 	import LogoWhite from '$lib/assets/logoWhite.svg';
 </script>
 
@@ -50,9 +51,9 @@
 	<div class="sm:flex sm:items-center sm:justify-between">
 		<FooterCopyright href="/" by="МАРМАКС" copyrightMessage="" />
 		<div class="flex mt-4 space-x-6 rtl:space-x-reverse sm:justify-center sm:mt-0">
-			<FooterIcon href="/">
-				<Telegram2 class="w-5 h-5 text-white hover:opacity-50" />
-			</FooterIcon>
+			<FooterLink aClass="block text-sm text-gray-500 sm:text-center dark:text-gray-400" href="https://github.com/drigster">
+				Made by Drigster
+			</FooterLink>
 		</div>
 	</div>
 </Footer>

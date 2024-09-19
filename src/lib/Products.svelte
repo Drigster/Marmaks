@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { ArrowLeftS, ArrowRightS } from '@o7/icon/remix';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
 
 	let height: number = $state(-1);
 	let width: number = $state(-1);
@@ -13,9 +16,25 @@
 		if (slider.children.length < 1) return;
 
 		const elements = slider.children;
-		slider.insertBefore(elements[elements.length - 1].cloneNode(true), elements[0]);
-		slider.insertBefore(elements[elements.length - 2].cloneNode(true), elements[0]);
-		slider.insertBefore(elements[elements.length - 3].cloneNode(true), elements[0]);
+		if (elements.length < 2) {
+			let element_clone1 = elements[elements.length - 1].cloneNode(true) as HTMLElement;
+			element_clone1.classList.remove('active');
+			slider.appendChild(element_clone1);
+			console.log("add");
+		}
+		let element_clone2 = elements[elements.length - 1].cloneNode(true) as HTMLElement;
+		element_clone2.classList.remove('active');
+		slider.insertBefore(element_clone2, elements[0]);
+
+		let element_clone3 = elements[elements.length - 2].cloneNode(true) as HTMLElement;
+		element_clone3.classList.remove('active');
+		slider.insertBefore(element_clone3, elements[0]);
+
+		let element_clone4 = elements[elements.length - 3].cloneNode(true) as HTMLElement;
+		element_clone4.classList.remove('active');
+		slider.insertBefore(element_clone4, elements[0]);
+
+		old_index = 3;
 		active_index = 3;
 		instant = true;
 	});
@@ -34,7 +53,6 @@
 			active_index = 0;
 		}
 
-		if (old_index == active_index) return;
 		if (old_index >= 0 && old_index < slider.children.length) {
 			slider.children[old_index].classList.remove('active');
 		}
@@ -90,23 +108,17 @@
 		bind:clientWidth={width}
 		bind:clientHeight={height}
 	>
-		{#each { length: 5 } as _, i}
+		{#each data.productList as product, i}
 			<div class="product" class:active={i === 0}>
-				<div>
-					<img src="" alt="" width="400" height="400" />
-				</div>
-				<div>
-					<h2 class="text-3xl font-light text-center pb-6">{i + 1}</h2>
-					<p class="text-xl">
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-						has been the industry's standard dummy text ever since the 1500s, when an unknown
-						printer took a galley of type and scrambled it to make a type specimen book. It has
-						survived not only five centuries, but also the leap into electronic typesetting,
-						remaining essentially unchanged. It was popularised in the 1960s with the release of
-						Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-						publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-					</p>
-				</div>
+				<img
+					class="row-span-2 my-auto"
+					src="/files/{product.imageFilename}"
+					alt=""
+					width="400"
+					height="400"
+				/>
+				<h2 class="text-3xl font-light text-center pb-6">{product.name}</h2>
+				<p class="text-xl">{product.description}</p>
 			</div>
 		{/each}
 	</div>
@@ -139,13 +151,31 @@
 		display: grid;
 		flex-shrink: 0;
 		grid-template-columns: 4fr 5fr;
-		gap: 6rem;
+		grid-template-rows: [first-start] max-content [first-end] 1fr;
+		column-gap: 6rem;
 		background-color: white;
 		padding: 6rem;
 		border-radius: 1rem;
 		box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
 		width: min(1440px, var(--active_width, 60vw));
 		scale: 0.9;
+	}
+
+	@media (max-width: 1024px) {
+		.product {
+			grid-template-columns: 1fr;
+			justify-items: center;
+		}
+
+		.product p {
+			display: none;
+		}
+
+		.product h2 {
+			width: 100%;
+			height: 100%;
+			grid-row: first-start;
+		}
 	}
 
 	.product.active {
@@ -155,7 +185,7 @@
 	.scroll-button {
 		position: absolute;
 		z-index: 1;
-		background-color: var(--background);
+		background-color: white;
 		border: solid var(--primary) 2px;
 		border-radius: 50%;
 		padding: 1rem;

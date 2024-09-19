@@ -32,9 +32,8 @@ export type InsertSetting = typeof settings.$inferInsert;
 
 export const certificates = sqliteTable('certificates', {
 	id: integer('id').primaryKey().notNull().unique(),
-	title: text('title').notNull(),
-	alt: text('alt').notNull(),
-	src: text('src').notNull()
+	name: text('name').notNull(),
+	imageFilename: text('images').notNull()
 });
 export type Certificate = typeof certificates.$inferSelect;
 export type InsertCertificate = typeof certificates.$inferInsert;

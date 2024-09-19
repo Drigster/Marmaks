@@ -22,16 +22,16 @@ export type Settings = {
 };
 
 const defaultSettings = [
-	['working_hours', 'Время работы', 'Пн-Пт 10:00-20:00'],
-	['phone1', 'Телефон 1', '+7 (123) 123-45-67'],
-	['phone2', 'Телефон 2', '+7 (123) 123-45-67'],
-	['email', 'Почта', 'test@test.test'],
-	['adress', 'Адрес', 'Москва, улица абв, д12'],
+	['working_hours', 'Время работы', ''],
+	['phone1', 'Телефон 1', ''],
+	['phone2', 'Телефон 2', ''],
+	['email', 'Почта', ''],
+	['adress', 'Адрес', ''],
 	['telegram', 'Телеграм', 'https://telegram.org/'],
 	['whatsapp', 'Ватсап', 'https://whatsapp.com/'],
-	['inn', 'ИНН', '1234567890'],
-	['kpp', 'КПП', '123456789'],
-	['ogrn', 'ОГРН', '123456789101112']
+	['inn', 'ИНН', ''],
+	['kpp', 'КПП', ''],
+	['ogrn', 'ОГРН', '']
 ];
 
 defaultSettings.forEach(async (setting) => {

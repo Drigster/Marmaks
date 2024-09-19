@@ -45,6 +45,14 @@
 					<span>Настройки</span>
 				</a>
 			</li>
+			<li class="sidenav-item">
+				<a class="sidenav-link" href="/admin/certificates">
+					<span class="sidenav-icon">
+						<Settings4 size="32" />
+					</span>
+					<span>Сертификаты</span>
+				</a>
+			</li>
 			<li class="sidenav-item mt-4">
 				<a class="sidenav-link" href="/admin/logout">
 					<LogoutBox size="32" />

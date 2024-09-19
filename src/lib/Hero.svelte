@@ -28,7 +28,7 @@
 	let orderModal = $state(false);
 </script>
 
-<div class="full-top breakout hero place-content-center px-8">
+<div class="breakout hero place-content-center px-8">
 	<div>
 		<h1 class="text-xl lg:text-3xl text-primary font-bold mb-6">
 			Общество с ограниченной ответственностью “Мармакс”

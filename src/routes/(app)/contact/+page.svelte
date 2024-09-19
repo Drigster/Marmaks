@@ -71,7 +71,7 @@
 					<span class="my-auto">{settingDict.ogrn}</span>
 				</div>
 				<div class="col-span-2">
-					<Button class="bg-primary" href="/files/МАРМАКС_КартаПартнера_2019.pdf" download
+					<Button class="bg-primary" href="/МАРМАКС_КартаПартнера_2019.pdf" download
 						>Скачать файл с реквизитами</Button
 					>
 				</div>

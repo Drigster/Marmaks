@@ -18,10 +18,14 @@ body {
 	background-color: var(--background);
 	font-family: 'Nunito Sans', sans-serif;
 	color: var(--primary);
-	scroll-behavior: smooth;
 
 	min-height: 100vh;
 	min-height: 100svh;
+}
+
+div {
+	scroll-behavior: smooth;
+	scroll-margin-top: 112px;
 }
 
 .card0 {
@@ -208,7 +212,7 @@ input::file-selector-button {
 		[content-end] minmax(0, var(--breakout-size)) [breakout-end] minmax(var(--padding-inline), 1fr)
 		[full-width-end];
 
-	padding-top: 96px;
+	padding-top: 112px;
 }
 
 .content-grid:has(> .full-top:first-child),

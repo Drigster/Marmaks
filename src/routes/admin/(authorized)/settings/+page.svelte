@@ -106,7 +106,7 @@
 <style>
 	.table {
 		display: grid;
-		grid-template-columns: repeat(3, max-content) 1fr max-content;
+		grid-template-columns: 1fr 1fr;
 	}
 
 	.table > .row {

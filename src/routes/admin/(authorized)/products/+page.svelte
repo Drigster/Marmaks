@@ -12,7 +12,6 @@
 	import { More2, Search as Search } from '@o7/icon/remix';
 	import type { PageData } from './$types';
 	import { fileProxy, superForm } from 'sveltekit-superforms';
-	import SuperDebug from 'sveltekit-superforms';
 	import spiner from '$lib/assets/spiner.svg';
 	import Dropzone from 'svelte-file-dropzone';
 	import { ErrorWarning } from '@o7/icon/remix';
@@ -300,7 +299,6 @@
 	autoclose={false}
 	outsideclose
 >
-	<SuperDebug data={$editForm} />
 	<form
 		class="flex flex-col gap-6"
 		method="POST"

@@ -1,41 +1,48 @@
 {
-	"version": "7",
-	"dialect": "sqlite",
-	"entries": [
-		{
-			"idx": 0,
-			"version": "6",
-			"when": 1722437697343,
-			"tag": "0000_rainy_paladin",
-			"breakpoints": true
-		},
-		{
-			"idx": 1,
-			"version": "6",
-			"when": 1724420554736,
-			"tag": "0001_old_blob",
-			"breakpoints": true
-		},
-		{
-			"idx": 2,
-			"version": "6",
-			"when": 1724433927311,
-			"tag": "0002_steep_the_watchers",
-			"breakpoints": true
-		},
-		{
-			"idx": 3,
-			"version": "6",
-			"when": 1726144307808,
-			"tag": "0003_supreme_ezekiel",
-			"breakpoints": true
-		},
-		{
-			"idx": 4,
-			"version": "6",
-			"when": 1726145185450,
-			"tag": "0004_sharp_solo",
-			"breakpoints": true
-		}
-	]
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1722437697343,
+      "tag": "0000_rainy_paladin",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1724420554736,
+      "tag": "0001_old_blob",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1724433927311,
+      "tag": "0002_steep_the_watchers",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1726144307808,
+      "tag": "0003_supreme_ezekiel",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1726145185450,
+      "tag": "0004_sharp_solo",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1726741731218,
+      "tag": "0005_abandoned_marauders",
+      "breakpoints": true
+    }
+  ]
 }
