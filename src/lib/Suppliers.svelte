@@ -10,17 +10,16 @@
 
 		let startedAt = 0;
 		function update() {
-			let elapsedTime = Date.now() - startedAt
-			if(elapsedTime > 25) {
-				startedAt = Date.now()
-				if(isElementInViewport(node)) {
+			let elapsedTime = Date.now() - startedAt;
+			if (elapsedTime > 25) {
+				startedAt = Date.now();
+				if (isElementInViewport(node)) {
 					if (node.scrollLeft >= width) {
 						node.scrollTo({
 							left: 0,
 							behavior: 'instant'
 						});
-					}
-					else {
+					} else {
 						node.scrollTo(node.scrollLeft + 10, 0);
 					}
 				}
@@ -28,15 +27,14 @@
 			requestAnimationFrame(update);
 		}
 
-		requestAnimationFrame(update)
+		requestAnimationFrame(update);
 	}
 
-	function isElementInViewport (element: HTMLElement) {
+	function isElementInViewport(element: HTMLElement) {
 		var rect = element.getBoundingClientRect();
 
 		return (
-			rect.top >= 0 &&
-			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+			rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
 		);
 	}
 </script>

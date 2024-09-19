@@ -122,7 +122,7 @@ export const actions = {
 			await db
 				.update(certificates)
 				.set({
-					name: editForm.data.name,
+					name: editForm.data.name
 				})
 				.where(eq(certificates.id, editForm.data.id));
 		}

@@ -10,6 +10,6 @@
 	<main class="content-grid">
 		{@render children()}
 	</main>
-	<div class="flex-grow" ></div>
+	<div class="flex-grow"></div>
 	<Footer />
 </div>

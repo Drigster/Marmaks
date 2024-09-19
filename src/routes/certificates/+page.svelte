@@ -16,12 +16,12 @@
 	});
 
 	function next() {
-		if(active_index >= data.certificateList.length - 1) return;
+		if (active_index >= data.certificateList.length - 1) return;
 		active_index++;
 	}
 
 	function prev() {
-		if(active_index <= 0) return;
+		if (active_index <= 0) return;
 		active_index--;
 	}
 </script>
@@ -43,8 +43,14 @@
 			alt=""
 			bind:this={image}
 		/>
-		<button class="scroll-button left-button" class:hidden={active_index < 1} onclick={prev}><ArrowLeftS size="32" /></button>
-		<button class="scroll-button right-button" class:hidden={active_index >= data.certificateList.length - 1} onclick={next}><ArrowRightS size="32" /></button>
+		<button class="scroll-button left-button" class:hidden={active_index < 1} onclick={prev}
+			><ArrowLeftS size="32" /></button
+		>
+		<button
+			class="scroll-button right-button"
+			class:hidden={active_index >= data.certificateList.length - 1}
+			onclick={next}><ArrowRightS size="32" /></button
+		>
 	</div>
 </div>
 

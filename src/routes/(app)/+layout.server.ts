@@ -16,8 +16,8 @@ export const load = async () => {
 	const emailSetting = await db.query.settings.findFirst({
 		where: eq(settings.key, 'email')
 	});
-	let phone = phoneSetting?.value ? phoneSetting?.value : '';
-	let email = emailSetting?.value ? emailSetting?.value : '';
+	const phone = phoneSetting?.value ? phoneSetting?.value : '';
+	const email = emailSetting?.value ? emailSetting?.value : '';
 
 	return { orderForm, productList, phone, email };
 };

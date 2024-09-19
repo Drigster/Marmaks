@@ -20,7 +20,7 @@
 			let element_clone1 = elements[elements.length - 1].cloneNode(true) as HTMLElement;
 			element_clone1.classList.remove('active');
 			slider.appendChild(element_clone1);
-			console.log("add");
+			console.log('add');
 		}
 		let element_clone2 = elements[elements.length - 1].cloneNode(true) as HTMLElement;
 		element_clone2.classList.remove('active');
