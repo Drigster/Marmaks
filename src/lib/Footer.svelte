@@ -35,9 +35,6 @@
 			<div>
 				<h2 class="mb-6 text-sm font-semibold uppercase text-white opacity-50">Legal</h2>
 				<FooterLinkGroup>
-					<FooterLink liClass="mb-4 text-white" href="/privacypolicy"
-						>Политика Конфиденциальности</FooterLink
-					>
 					<FooterLink liClass="mb-4 text-white" href="/termsofuse"
 						>Пользовательское Соглашение</FooterLink
 					>

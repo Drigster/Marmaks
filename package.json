@@ -52,6 +52,7 @@
 		"nodemailer": "^6.9.15",
 		"svelte-file-dropzone": "^2.0.8",
 		"svelte-gestures": "^5.0.4",
+		"svelte-markdown": "^0.4.1",
 		"sveltekit-superforms": "^2.19.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1",
