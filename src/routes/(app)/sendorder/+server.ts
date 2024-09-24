@@ -55,6 +55,12 @@ async function sendOrder(
 		\tПочта: ${email}
 		\tСообщение: ${message}
 		\tСписок файлов: ${files.join(', ')}`
+	}, (err, info) => {
+		console.log(JSON.stringify(err));
+
+		if (process.env.NODE_ENV === 'development' && info) {
+			console.log('CustomerEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
+		}
 	});
 	const internalEmail = await transporter.sendMail({
 		from: `"МАРМАКС" <${SMTP_USER}>`,
@@ -65,12 +71,13 @@ async function sendOrder(
 		\tПочта: ${email}
 		\tСообщение: ${message}
 		\tСписок файлов: ${files.join(', ')}`
-	});
+	}, (err, info) => {
+		console.log(JSON.stringify(err));
 
-	if (process.env.NODE_ENV === 'development') {
-		console.log('CustomerEmail Preview URL: ' + nodemailer.getTestMessageUrl(customerEmail));
-		console.log('InternalEmail Preview URL: ' + nodemailer.getTestMessageUrl(internalEmail));
-	}
+		if (process.env.NODE_ENV === 'development' && info) {
+			console.log('InternalEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
+		}
+	});
 }
 
 export const _orderSchema = z.object({
