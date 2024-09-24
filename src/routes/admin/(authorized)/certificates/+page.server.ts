@@ -3,7 +3,7 @@ import { certificates } from '$lib/database/schema.js';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
-import { writeFile, rm } from 'fs/promises';
+import { writeFile, rm, mkdir } from 'fs/promises';
 import { eq } from 'drizzle-orm';
 
 const createSchema = insertCertificateSchema.omit({ imageFilename: true }).extend({
@@ -50,6 +50,7 @@ export const actions = {
 			'.' +
 			filenameSplit[filenameSplit.length - 1];
 
+		await mkdir("static/files", { recursive: true });
 		await writeFile(
 			`static/files/${filename}`,
 			new Uint8Array(await createForm.data.image.arrayBuffer())
@@ -106,6 +107,7 @@ export const actions = {
 			await rm(`static/files/${product?.imageFilename}`, {
 				force: true
 			});
+			await mkdir("static/files", { recursive: true });
 			await writeFile(
 				`static/files/${filename}`,
 				new Uint8Array(await editForm.data.image.arrayBuffer())
