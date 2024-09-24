@@ -2,7 +2,7 @@ import { actionResult, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
 import { writeFileSync, mkdirSync } from 'fs';
-import { BASE_URL, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USER } from '$env/static/private';
+import { ORIGIN, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USER } from '$env/static/private';
 import nodemailer, { type Transporter } from 'nodemailer';
 
 let transporter: Transporter;
@@ -100,7 +100,7 @@ export async function POST({ request }) {
 				`static/files/${dirName}/${file.name}`,
 				new Uint8Array(await file.arrayBuffer())
 			);
-			filePaths.push(`${BASE_URL}/files/${dirName}/${file.name}`);
+			filePaths.push(`${ORIGIN}/files/${dirName}/${file.name}`);
 		}
 	}
 

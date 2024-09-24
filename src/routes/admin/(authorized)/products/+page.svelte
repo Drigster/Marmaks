@@ -379,6 +379,7 @@
 			class="bg-primary p-3 rounded-[0.25rem]"
 			name="id"
 			value={items.find((item) => item.id == selectedItem)?.id}
+			disabled={$file.length < 1}
 		>
 			<span class="relative">
 				Сохранить
