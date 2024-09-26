@@ -44,13 +44,5 @@
 	</div>
 	<div class="sm:flex sm:items-center sm:justify-between">
 		<FooterCopyright href="/" by="МАРМАКС" copyrightMessage="" />
-		<div class="flex mt-4 space-x-6 rtl:space-x-reverse sm:justify-center sm:mt-0">
-			<FooterLink
-				aClass="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
-				href="https://github.com/drigster"
-			>
-				Made by Drigster
-			</FooterLink>
-		</div>
 	</div>
 </Footer>

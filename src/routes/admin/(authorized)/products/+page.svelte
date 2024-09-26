@@ -198,7 +198,6 @@
 			on:drop={handleFilesSelect}
 			multiple={false}
 			accept=".png, .svg, .jpg, .gif"
-			required
 		>
 			<svg
 				aria-hidden="true"
@@ -306,7 +305,6 @@
 		enctype="multipart/form-data"
 		use:editEnhance
 	>
-		{JSON.stringify($editErrors)}
 		<div>
 			<div class="inputBox">
 				<input type="text" name="name" bind:value={$editForm.name} required />

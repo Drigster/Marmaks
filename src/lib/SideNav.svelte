@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LogoSmall from '$lib/assets/logoSmall.svg';
 	import LogoWhite from '$lib/assets/logo.svg';
-	import { ContractLeft, ExpandRight, LogoutBox, Settings4, Box3 } from '@o7/icon/remix';
+	import { ContractLeft, ExpandRight, LogoutBox, Settings4, Box3, Article } from '@o7/icon/remix';
 
 	let sidenavClosed = $state(false);
 </script>
@@ -48,7 +48,7 @@
 			<li class="sidenav-item">
 				<a class="sidenav-link" href="/admin/certificates">
 					<span class="sidenav-icon">
-						<Settings4 size="32" />
+						<Article size="32" />
 					</span>
 					<span>Сертификаты</span>
 				</a>
