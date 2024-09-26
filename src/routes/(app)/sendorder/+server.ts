@@ -97,14 +97,14 @@ export async function POST({ request }) {
 
 	const dirName = Date.now() + '_' + Math.round(Math.random() * 10000);
 
-	mkdirSync(`static/files/${dirName}`);
+	mkdirSync(`data/${dirName}`);
 
 	const filePaths: string[] = [];
 	if (orderForm.data.files != undefined) {
 		for (let i = 0; i < orderForm.data.files.length; i++) {
 			const file: File = orderForm.data.files[i];
 			writeFileSync(
-				`static/files/${dirName}/${file.name}`,
+				`data/${dirName}/${file.name}`,
 				new Uint8Array(await file.arrayBuffer())
 			);
 			filePaths.push(`${ORIGIN}/files/${dirName}/${file.name}`);
