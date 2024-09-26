@@ -131,5 +131,4 @@
 			aspect-ratio: 1/1;
 		}
 	}
-
 </style>

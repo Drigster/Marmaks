@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@o7/icon/heroicons';
 	import type { PageData } from './$types';
-	import { Button, Modal } from 'flowbite-svelte';
+	import { Modal } from 'flowbite-svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -76,7 +76,7 @@
 
 		active_index++;
 
-		if(slider == undefined) return;
+		if (slider == undefined) return;
 
 		if (active_index == slider.children.length - 1) {
 			active_index = 2;
@@ -94,8 +94,8 @@
 		old_index = active_index;
 		active_index--;
 
-		if(slider == undefined) return;
-		
+		if (slider == undefined) return;
+
 		if (active_index == 0) {
 			slider.scrollTo({
 				left:
@@ -129,16 +129,28 @@
 					/>
 					<h2 class="text-3xl font-light text-center pb-6">{product.name}</h2>
 					<p class="text-xl">{product.description}</p>
-					<button class="learn-more-button bg-primary text-white p-4 mt-4 font-medium rounded-xl text-xl" onclick={() => {modalProductIndex = i; modalProductState = true}}>Узнать больше</button>
+					<button
+						class="learn-more-button bg-primary text-white p-4 mt-4 font-medium rounded-xl text-xl"
+						onclick={() => {
+							modalProductIndex = i;
+							modalProductState = true;
+						}}>Узнать больше</button
+					>
 				</div>
 			{/each}
 		</div>
 		<div>
-			<button class="scroll-button left-button hidden" class:hidden={false} onclick={prev}><ChevronLeft size="32" /></button>
-			<button class="scroll-button right-button hidden" class:hidden={false} onclick={next}><ChevronRight size="32" /></button>
+			<button class="scroll-button left-button hidden" class:hidden={false} onclick={prev}
+				><ChevronLeft size="32" /></button
+			>
+			<button class="scroll-button right-button hidden" class:hidden={false} onclick={next}
+				><ChevronRight size="32" /></button
+			>
 		</div>
 		<Modal title=" " bind:open={modalProductState} autoclose>
-			<h2 class="text-3xl font-light text-center pb-6">{data.productList[modalProductIndex].name}</h2>
+			<h2 class="text-3xl font-light text-center pb-6">
+				{data.productList[modalProductIndex].name}
+			</h2>
 			<img
 				class="row-span-2 mx-auto"
 				src="/files/{data.productList[modalProductIndex].imageFilename}"

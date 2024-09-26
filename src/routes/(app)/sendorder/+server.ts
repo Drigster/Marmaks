@@ -43,11 +43,12 @@ async function sendOrder(
 	message: string,
 	files: string[]
 ) {
-	const customerEmail = await transporter.sendMail({
-		from: `"МАРМАКС" <${SMTP_USER}>`,
-		to: `${email}`,
-		subject: 'Ваш заказ получен!',
-		text: `Здравствуйте ${name}.
+	await transporter.sendMail(
+		{
+			from: `"МАРМАКС" <${SMTP_USER}>`,
+			to: `${email}`,
+			subject: 'Ваш заказ получен!',
+			text: `Здравствуйте ${name}.
 		Мы получили ваш заказ. С вами свяжутся в скорое время. Если у вас есть дополнительные вопросы пишите нам на почту: или звоните по телефону: .
 		Дубликат вашего заказа: 
 		\tИмя: ${name}
@@ -55,29 +56,34 @@ async function sendOrder(
 		\tПочта: ${email}
 		\tСообщение: ${message}
 		\tСписок файлов: ${files.join(', ')}`
-	}, (err, info) => {
-		console.log(JSON.stringify(err));
+		},
+		(err, info) => {
+			console.log(JSON.stringify(err));
 
-		if (process.env.NODE_ENV === 'development' && info) {
-			console.log('CustomerEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
+			if (process.env.NODE_ENV === 'development' && info) {
+				console.log('CustomerEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
+			}
 		}
-	});
-	const internalEmail = await transporter.sendMail({
-		from: `"МАРМАКС" <${SMTP_USER}>`,
-		to: `${email}`,
-		subject: 'Получен новый заказ!',
-		text: `\tИмя: ${name}
+	);
+	await transporter.sendMail(
+		{
+			from: `"МАРМАКС" <${SMTP_USER}>`,
+			to: `${email}`,
+			subject: 'Получен новый заказ!',
+			text: `\tИмя: ${name}
 		\tТелефон: ${phone}
 		\tПочта: ${email}
 		\tСообщение: ${message}
 		\tСписок файлов: ${files.join(', ')}`
-	}, (err, info) => {
-		console.log(JSON.stringify(err));
+		},
+		(err, info) => {
+			console.log(JSON.stringify(err));
 
-		if (process.env.NODE_ENV === 'development' && info) {
-			console.log('InternalEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
+			if (process.env.NODE_ENV === 'development' && info) {
+				console.log('InternalEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
+			}
 		}
-	});
+	);
 }
 
 export const _orderSchema = z.object({
@@ -103,10 +109,7 @@ export async function POST({ request }) {
 	if (orderForm.data.files != undefined) {
 		for (let i = 0; i < orderForm.data.files.length; i++) {
 			const file: File = orderForm.data.files[i];
-			writeFileSync(
-				`data/${dirName}/${file.name}`,
-				new Uint8Array(await file.arrayBuffer())
-			);
+			writeFileSync(`data/${dirName}/${file.name}`, new Uint8Array(await file.arrayBuffer()));
 			filePaths.push(`${ORIGIN}/files/${dirName}/${file.name}`);
 		}
 	}

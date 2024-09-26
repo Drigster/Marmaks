@@ -50,11 +50,8 @@ export const actions = {
 			'.' +
 			filenameSplit[filenameSplit.length - 1];
 
-		await mkdir("data", { recursive: true });
-		await writeFile(
-			`data/${filename}`,
-			new Uint8Array(await createForm.data.image.arrayBuffer())
-		);
+		await mkdir('data', { recursive: true });
+		await writeFile(`data/${filename}`, new Uint8Array(await createForm.data.image.arrayBuffer()));
 
 		await db.insert(products).values({
 			name: createForm.data.name,
@@ -108,11 +105,8 @@ export const actions = {
 			await rm(`data/${product?.imageFilename}`, {
 				force: true
 			});
-			await mkdir("data", { recursive: true });
-			await writeFile(
-				`data/${filename}`,
-				new Uint8Array(await editForm.data.image.arrayBuffer())
-			);
+			await mkdir('data', { recursive: true });
+			await writeFile(`data/${filename}`, new Uint8Array(await editForm.data.image.arrayBuffer()));
 
 			await db
 				.update(products)

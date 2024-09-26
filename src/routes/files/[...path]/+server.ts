@@ -4,8 +4,6 @@ import { existsSync } from 'fs';
 import path from 'path';
 
 export async function GET({ params }) {
-	let a = path.resolve("data");
-
 	// Normalize the path
 	const normalizedPath = path.normalize(params.path);
 	// Ensure it is within a specific directory (e.g., uploads)
