@@ -23,7 +23,7 @@ export const actions = {
 	edit: async ({ request }) => {
 		const editForm = await superValidate(request, zod(editSchema));
 
-		if (editForm.valid != undefined) {
+		if (!editForm.valid) {
 			return fail(400, { editForm });
 		}
 
