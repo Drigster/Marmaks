@@ -80,8 +80,8 @@
 				<input type="text" name="phone" bind:value={$orderForm.phone} required />
 				<label for="phone">Телефон</label>
 			</div>
-			{#if $orderErrors.name}
-				<span class="errorMessage">{$orderErrors.name}</span>
+			{#if $orderErrors.phone}
+				<span class="errorMessage">{$orderErrors.phone}</span>
 			{/if}
 		</div>
 		<div>
