@@ -33,7 +33,7 @@
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.6",
 		"svelte": "5.0.0-next.184",
-		"svelte-check": "^4.0.2",
+		"svelte-check": "^4.0.5",
 		"svelte-headless-table": "^0.18.2",
 		"sveltekit-flash-message": "^2.4.4",
 		"tailwindcss": "^3.4.12",
