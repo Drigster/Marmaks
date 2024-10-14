@@ -42,8 +42,8 @@ importers:
         specifier: ^2.19.0
         version: 2.19.0(@sveltejs/kit@2.5.28(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(@types/json-schema@7.0.15)(svelte@5.0.0-next.184)
       tailwind-merge:
-        specifier: ^2.5.2
-        version: 2.5.2
+        specifier: ^2.5.4
+        version: 2.5.4
       tailwind-variants:
         specifier: ^0.2.1
         version: 0.2.1(tailwindcss@3.4.12)
@@ -164,9 +164,11 @@ packages:
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
+    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild-kit/esm-loader@2.6.5':
     resolution: {integrity: sha512-FxEMIkJKnodyA1OaCUoEvbYRkoZlLZ4d/eXFu9Fh8CbBBgP5EmZxrfTRyN0qpXZ4vOvqnE5YdRdcrmUUXuU+dA==}
+    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -2364,8 +2366,8 @@ packages:
     resolution: {integrity: sha512-h5IS/hKkuVCbKSieR9uQCj9w+zLHoPh+ce19bBYyqF53g6mnPB8sAtIbe1s9dh2S2fCmYX2xel1Ln3PJBbK4kw==}
     engines: {node: '>= 0.8.0'}
 
-  tailwind-merge@2.5.2:
-    resolution: {integrity: sha512-kjEBm+pvD+6eAwzJL2Bi+02/9LFLal1Gs61+QB7HvTfQQ0aXwC5LGT8PEt1gS0CWKktKe6ysPTAy3cBC5MeiIg==}
+  tailwind-merge@2.5.4:
+    resolution: {integrity: sha512-0q8cfZHMu9nuYP/b5Shb7Y7Sh1B7Nnl5GqNr1U+n2p6+mybvRtayrQ+0042Z5byvTA8ihjlP8Odo8/VnHbZu4Q==}
 
   tailwind-variants@0.2.1:
     resolution: {integrity: sha512-2xmhAf4UIc3PijOUcJPA1LP4AbxhpcHuHM2C26xM0k81r0maAO6uoUSHl3APmvHZcY5cZCY/bYuJdfFa4eGoaw==}
@@ -3867,7 +3869,7 @@ snapshots:
       apexcharts: 3.53.0
       flowbite: 2.5.1(rollup@4.21.3)
       svelte: 5.0.0-next.184
-      tailwind-merge: 2.5.2
+      tailwind-merge: 2.5.4
     transitivePeerDependencies:
       - rollup
 
@@ -4578,11 +4580,11 @@ snapshots:
     dependencies:
       svg.js: 2.7.1
 
-  tailwind-merge@2.5.2: {}
+  tailwind-merge@2.5.4: {}
 
   tailwind-variants@0.2.1(tailwindcss@3.4.12):
     dependencies:
-      tailwind-merge: 2.5.2
+      tailwind-merge: 2.5.4
       tailwindcss: 3.4.12
 
   tailwindcss@3.4.12:
