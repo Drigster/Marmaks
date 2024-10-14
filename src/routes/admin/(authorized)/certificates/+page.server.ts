@@ -7,7 +7,7 @@ import { writeFile, rm, mkdir } from 'fs/promises';
 import { eq } from 'drizzle-orm';
 
 const createSchema = insertCertificateSchema.omit({ imageFilename: true }).extend({
-	image: z.instanceof(File, { message: 'Please upload a file.' })
+	image: z.instanceof(File, { message: 'Пожалуйста выбериите файл.' })
 });
 
 const deleteSchema = z.object({
@@ -16,7 +16,7 @@ const deleteSchema = z.object({
 
 const editSchema = createSchema.omit({ image: true, id: true }).extend({
 	id: z.number().nonnegative(),
-	image: z.instanceof(File, { message: 'Please upload a file.' }).optional()
+	image: z.instanceof(File, { message: 'Пожалуйста выбериите файл.' }).optional()
 });
 
 export const load = async () => {
@@ -58,7 +58,7 @@ export const actions = {
 			imageFilename: filename
 		});
 
-		return message(createForm, 'Продукт создан');
+		return message(createForm, 'Сертификат создан');
 	},
 
 	delete: async ({ request }) => {
@@ -78,7 +78,7 @@ export const actions = {
 
 		await db.delete(certificates).where(eq(certificates.id, deleteForm.data.id));
 
-		return message(deleteForm, 'Продукт удалён');
+		return message(deleteForm, 'Сертификат удалён');
 	},
 
 	edit: async ({ request }) => {
@@ -123,6 +123,6 @@ export const actions = {
 				.where(eq(certificates.id, editForm.data.id));
 		}
 
-		return message(editForm, 'Продукт изменён');
+		return message(editForm, 'Сертификат изменён');
 	}
 };

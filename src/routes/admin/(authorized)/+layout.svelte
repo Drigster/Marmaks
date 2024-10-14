@@ -7,6 +7,8 @@
 <div class="flex">
 	<SideNav />
 	<main class="w-full h-full">
-		{@render children()}
+		<div class="p-10">
+			{@render children()}
+		</div>
 	</main>
 </div>

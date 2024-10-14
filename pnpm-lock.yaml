@@ -120,6 +120,9 @@ importers:
       svelte-headless-table:
         specifier: ^0.18.2
         version: 0.18.2(svelte@5.0.0-next.184)
+      sveltekit-flash-message:
+        specifier: ^2.4.4
+        version: 2.4.4(@sveltejs/kit@2.5.28(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184)
       tailwindcss:
         specifier: ^3.4.12
         version: 3.4.12
@@ -2318,6 +2321,12 @@ packages:
     resolution: {integrity: sha512-oHWNajXOytt/5s2Ark3o/CP7bHLx+o/QZjTkCtU1dECqSmYyGqrIsoZi0Cx0VBdXAHMqI+1/T70ppaL1cL7LEw==}
     engines: {node: '>=18'}
 
+  sveltekit-flash-message@2.4.4:
+    resolution: {integrity: sha512-CFN03chH/FMEJcBZ/8zKm7RqGee/pwb57Spbbx8QCQPhe7N9ofZHd9iYV2vVy4E9glBo/oQ1IG7VQje6L092wg==}
+    peerDependencies:
+      '@sveltejs/kit': 1.x || 2.x
+      svelte: 3.x || 4.x || >=5.0.0-next.51
+
   sveltekit-superforms@2.19.0:
     resolution: {integrity: sha512-WJmdYf8WpuDkl6zxdRP72R+wDefx1OhIQYKdsIQqNkFntNq0/BUrkMdUr1i7d/FbX0gS1A9GRflCx3WiYQlAXg==}
     peerDependencies:
@@ -4505,6 +4514,11 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.11
       zimmerframe: 1.1.2
+
+  sveltekit-flash-message@2.4.4(@sveltejs/kit@2.5.28(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184):
+    dependencies:
+      '@sveltejs/kit': 2.5.28(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5))
+      svelte: 5.0.0-next.184
 
   sveltekit-superforms@2.19.0(@sveltejs/kit@2.5.28(@sveltejs/vite-plugin-svelte@4.0.0-next.7(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(svelte@5.0.0-next.184)(vite@5.4.6(@types/node@22.5.5)))(@types/json-schema@7.0.15)(svelte@5.0.0-next.184):
     dependencies:

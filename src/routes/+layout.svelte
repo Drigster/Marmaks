@@ -1,7 +1,33 @@
 <script lang="ts">
 	import '../app.css';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
+	import Toast from '$lib/Toast.svelte';
+	import { InformationCircle, ExclamationCircle } from '@o7/icon/heroicons';
+	import { fly } from 'svelte/transition';
+	import { mount } from 'svelte';
+
+	const flash = getFlash(page);
 
 	let { children } = $props();
+
+	$effect(() => {
+		if ($flash) {
+			console.log('Flash');
+			const parrent = document.getElementById('flash');
+			if (parrent) {
+				mount(Toast, {
+					props: {
+						type: $flash.type,
+						message: $flash.message
+					},
+					target: parrent
+				});
+			}
+		}
+
+		$flash = undefined;
+	});
 </script>
 
 <svelte:head>
@@ -35,3 +61,5 @@
 </svelte:head>
 
 {@render children()}
+
+<div id="flash" class="fixed right-0 bottom-0 flex flex-col m-4 gap-4"></div>

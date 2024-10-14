@@ -40,7 +40,7 @@
 </script>
 
 <div>
-	<h2 class="text-center text-5xl font-light">Оборудование которое мы используем</h2>
+	<h2 class="text-center text-3xl xl:text-5xl font-light">Оборудование которое мы используем</h2>
 	<div
 		class="flex overflow-x-hidden whitespace-nowrap h-24 my-8 border-x-4 border-[#1d3a6d]"
 		use:scroll

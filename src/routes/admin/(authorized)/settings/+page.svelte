@@ -28,79 +28,71 @@
 	);
 </script>
 
-<div class="p-10">
-	<div class="flex justify-between mb-2">
-		<Label class="space-y-2 max-w-96 w-full">
-			<Input type="email" placeholder="Поиск по названию" size="md" let:props>
-				<Search slot="left" />
-				<CloseButton
-					slot="right"
-					class={searchTerm.length > 0 ? '' : 'hidden'}
-					onclick={() => {
-						searchTerm = '';
-					}}
-				/>
-				<input type="text" {...props} bind:value={searchTerm} />
-			</Input>
-		</Label>
+<div class="flex justify-between mb-2">
+	<Label class="space-y-2 max-w-96 w-full">
+		<Input type="email" placeholder="Поиск по названию" size="md" let:props>
+			<Search slot="left" />
+			<CloseButton
+				slot="right"
+				class={searchTerm.length > 0 ? '' : 'hidden'}
+				onclick={() => {
+					searchTerm = '';
+				}}
+			/>
+			<input type="text" {...props} bind:value={searchTerm} />
+		</Input>
+	</Label>
+</div>
+<div class="table rounded-xl">
+	<div class="row header text-xs font-semibold uppercase">
+		<span class="cell">Название</span>
+		<span class="cell">Значение</span>
 	</div>
-	<div class="table rounded-xl">
-		<div class="row header text-xs font-semibold uppercase">
-			<span class="cell">Название</span>
-			<span class="cell">Значение</span>
-		</div>
-		{#each filteredItems as item, i}
-			<div class="row">
-				<span class="cell">{item.name}</span>
-				<span class="cell">
-					{#if valueEditing && selectedValue == i}
-						<form class="inline-change-form" action="?/edit" method="POST" use:editEnhance>
-							<input class="hidden" type="text" name="key" value={item.key} />
-							<input type="text" name="value" value={item.value} />
-							{#if $editDelayed}
-								<button class="my-auto" type="submit" disabled>
-									spiner
-									<img
-										class="h-full w-full"
-										width="20"
-										height="20"
-										src={spiner}
-										alt="Spiner icon"
-									/>
-								</button>
-							{:else}
-								<button class="my-auto" type="submit">
-									<Check class="h-full w-full" size="20" />
-								</button>
-							{/if}
-							<button
-								class="my-auto"
-								type="button"
-								onclick={() => {
-									valueEditing = false;
-									selectedValue = -1;
-								}}><XMark class="h-full w-full" size="20" /></button
-							>
-						</form>
-					{:else}
-						<span>
-							{item.value}
-						</span>
+	{#each filteredItems as item, i}
+		<div class="row">
+			<span class="cell">{item.name}</span>
+			<span class="cell">
+				{#if valueEditing && selectedValue == i}
+					<form class="inline-change-form" action="?/edit" method="POST" use:editEnhance>
+						<input class="hidden" type="text" name="key" value={item.key} />
+						<input type="text" name="value" value={item.value} />
+						{#if $editDelayed}
+							<button class="my-auto" type="submit" disabled>
+								spiner
+								<img class="h-full w-full" width="20" height="20" src={spiner} alt="Spiner icon" />
+							</button>
+						{:else}
+							<button class="my-auto" type="submit">
+								<Check class="h-full w-full" size="20" />
+							</button>
+						{/if}
 						<button
 							class="my-auto"
 							type="button"
 							onclick={() => {
-								selectedValue = i;
-								valueEditing = true;
-							}}
+								valueEditing = false;
+								selectedValue = -1;
+							}}><XMark class="h-full w-full" size="20" /></button
 						>
-							<PencilSquare size="20" />
-						</button>
-					{/if}
-				</span>
-			</div>
-		{/each}
-	</div>
+					</form>
+				{:else}
+					<span>
+						{item.value}
+					</span>
+					<button
+						class="my-auto"
+						type="button"
+						onclick={() => {
+							selectedValue = i;
+							valueEditing = true;
+						}}
+					>
+						<PencilSquare size="20" />
+					</button>
+				{/if}
+			</span>
+		</div>
+	{/each}
 </div>
 
 <style>

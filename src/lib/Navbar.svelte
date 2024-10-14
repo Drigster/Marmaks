@@ -4,26 +4,22 @@
 	import { Dropdown, DropdownItem } from 'flowbite-svelte';
 	import { clickOutside } from './util';
 	import { Phone, Bars3, PhoneArrowUpRight, Envelope } from '@o7/icon/heroicons';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
 
-	let { phone, email }: { phone: string; email: string } = $props();
+	const flash = getFlash(page);
+
+	let { phone, phone2, email }: { phone: string; phone2: string; email: string } = $props();
 
 	function copy(event: MouseEvent, text: string) {
 		event.stopPropagation();
-		console.log(event);
 		const clickedElement = event.target as HTMLElement;
 		if (clickedElement == null) {
 			return;
 		}
 
 		navigator.clipboard.writeText(text);
-		let oldTooltip = clickedElement.getAttribute('data-tooltip');
-		clickedElement.setAttribute('data-tooltip', 'Скопировано');
-		if (oldTooltip == null) {
-			return;
-		}
-		setTimeout(() => {
-			clickedElement.setAttribute('data-tooltip', oldTooltip);
-		}, 2000);
+		$flash = { type: 'info', message: 'Скопировано' };
 	}
 	let navToggle: HTMLInputElement;
 </script>
@@ -48,7 +44,7 @@
 				<li class="nav-item"><a class="nav-link" href="/#products">Продукция</a></li>
 				<li class="nav-item"><a class="nav-link" href="/#about_us">Как работаем</a></li>
 				<li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
-				<li class="nav-item lg:hidden">
+				<li class="nav-item border-t pt-2 lg:hidden">
 					<button
 						class="my-tooltip my-tooltip-bottom flex gap-2 nav-link mx-auto"
 						data-tooltip="Скопировать!"
@@ -56,7 +52,17 @@
 					>
 						<Phone class="mx-auto" />
 						<span class="my-auto">
-							тел: {phone}
+							{phone}
+						</span>
+					</button>
+					<button
+						class="my-tooltip my-tooltip-bottom flex gap-2 nav-link mx-auto"
+						data-tooltip="Скопировать!"
+						onclick={(event) => copy(event, phone2)}
+					>
+						<Phone class="mx-auto" />
+						<span class="my-auto">
+							{phone2}
 						</span>
 					</button>
 					<button
@@ -83,7 +89,19 @@
 					>
 						<Phone class="mx-auto" size="32" />
 						<span class="my-auto">
-							тел: {phone}
+							{phone}
+						</span>
+					</button>
+				</DropdownItem>
+				<DropdownItem>
+					<button
+						class="my-tooltip flex gap-2"
+						data-tooltip="Скопировать!"
+						onclick={(event) => copy(event, phone2)}
+					>
+						<Phone class="mx-auto" size="32" />
+						<span class="my-auto">
+							{phone2}
 						</span>
 					</button>
 				</DropdownItem>

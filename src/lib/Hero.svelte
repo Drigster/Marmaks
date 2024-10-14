@@ -3,6 +3,11 @@
 	import { Button, Helper, Label, Modal } from 'flowbite-svelte';
 	import { filesProxy, superForm } from 'sveltekit-superforms';
 	import spiner from '$lib/assets/spiner.svg';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
+	import Dropzone from 'svelte-file-dropzone';
+
+	const flash = getFlash(page);
 
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
@@ -11,23 +16,35 @@
 		form: orderForm,
 		enhance: orderEnhance,
 		errors: orderErrors,
-		delayed: orderDelayed
+		delayed: orderDelayed,
+		message: orderMessage
 	} = superForm(data.orderForm, {
-		clearOnSubmit: 'errors-and-message',
 		onUpdated({ form }) {
 			if (form.valid) {
 				orderModal = false;
+				$flash = { type: 'success', message: 'Заявка успешно отправлена!' };
 			}
+		},
+		onError({ result }) {
+			$flash = { type: 'error', message: result.error.message };
 		},
 		delayMs: 250,
 		timeoutMs: 8000
 	});
 
-	const files = filesProxy(orderForm, 'files');
+	const file = filesProxy(orderForm, 'files');
+
+	function handleFilesSelect(e: { detail: { acceptedFiles: any } }) {
+		$file = e.detail.acceptedFiles;
+		console.log($file);
+	}
 
 	let orderModal = $state(false);
 </script>
 
+{#if $orderMessage}
+	<div class="message">{$orderMessage}</div>
+{/if}
 <div class="breakout hero place-content-center px-8">
 	<div>
 		<h1 class="text-xl lg:text-3xl text-primary font-bold mb-6">
@@ -103,15 +120,48 @@
 			{/if}
 		</div>
 		<div>
-			<Label class="pb-2">Upload file</Label>
-			<input
-				type="file"
+			<Dropzone
+				disableDefaultStyles
+				containerClasses="flex flex-col justify-center items-center w-full rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 h-32 bg-background"
 				name="files"
-				class="block w-full disabled:cursor-not-allowed disabled:opacity-50 rtl:text-right focus:border-primary-500 focus:ring-primary-500 dark:focus:border-primary-500 dark:focus:ring-primary-500 bg-gray-50 text-gray-900 dark:bg-gray-600 dark:placeholder-gray-400 border-gray-300 dark:border-gray-500 text-sm rounded-lg border p-0 dark:text-gray-400 mb-2"
-				multiple
-				bind:files={$files}
-			/>
-			<Helper>SVG, PNG, JPG or GIF (MAX. 800x400px).</Helper>
+				on:drop={handleFilesSelect}
+				multiple={true}
+				accept=".png, .svg, .jpg"
+			>
+				<svg
+					aria-hidden="true"
+					class="mb-3 w-10 h-10 text-gray-400"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+					><path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+					></path></svg
+				>
+				{#if $file.length === 0}
+					<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+						<span class="font-semibold">Нажмите чтобы выбрать</span> или перетащите
+						<span class="font-semibold">файл</span>
+					</p>
+					<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG или JPG</p>
+				{:else}
+					<p>
+						{#each $file as fileItem, i}
+							{#if i != 0},{/if}
+							{fileItem.name}
+						{/each}
+					</p>
+				{/if}
+				{#if $orderErrors.files}
+					<p class="text-red-700">
+						{$orderErrors.files}
+					</p>
+				{/if}
+			</Dropzone>
 		</div>
 
 		<Button type="submit" class="bg-primary p-3 rounded-[0.25rem]">
@@ -153,6 +203,13 @@
 			flex-direction: column;
 			padding: 1rem;
 			padding-top: 6rem;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.hero img {
+			height: auto;
+			width: 100%;
 		}
 	}
 </style>

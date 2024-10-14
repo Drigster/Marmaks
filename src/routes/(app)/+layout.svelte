@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex min-h-screen flex-col">
-	<Navbar phone={data.phone} email={data.email} />
+	<Navbar phone={data.phone} phone2={data.phone2} email={data.email} />
 	<main class="content-grid">
 		{@render children()}
 	</main>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Breadcrumb, BreadcrumbItem, Button } from 'flowbite-svelte';
-	import { Time, Phone, Mail, MapPin, Telegram2, Whatsapp } from '@o7/icon/remix';
+	import { Time, Phone, Mail, MapPin, Telegram2, Whatsapp, FileCopy } from '@o7/icon/remix';
 
 	import type { PageData } from './$types';
 	import type { Settings } from '$lib/database/db';
@@ -20,6 +20,12 @@
 	<div class="p-8 bg-white rounded-2xl shadow-xl">
 		<div class="grid grid-cols-2 gap-4" style="grid-template-columns: min-content 1fr;">
 			<span class="text-center text-2xl font-semibold col-span-2">Офис</span>
+			<!-- <div class="grid grid-cols-subgrid col-span-2">
+				<Time class="mx-auto" size="32" />
+				<span class="my-auto flex"
+					>{settingDict.working_hours}<FileCopy class="pl-1" size="20" /></span
+				>
+			</div> -->
 			<div class="grid grid-cols-subgrid col-span-2">
 				<Time class="mx-auto" size="32" />
 				<span class="my-auto">{settingDict.working_hours}</span>
@@ -40,11 +46,11 @@
 				<MapPin class="mx-auto" size="32" />
 				<span class="my-auto">{settingDict.adress}</span>
 			</div>
-			<div class="grid grid-cols-subgrid col-span-2">
+			<div class="grid grid-cols-subgrid col-span-2 font-bold">
 				<Telegram2 class="mx-auto" size="32" />
 				<a class="my-auto" href={settingDict.telegram}>Телеграм</a>
 			</div>
-			<div class="grid grid-cols-subgrid col-span-2">
+			<div class="grid grid-cols-subgrid col-span-2 font-bold">
 				<Whatsapp class="mx-auto" size="32" />
 				<a class="my-auto" href={settingDict.whatsapp}>Ватсап</a>
 			</div>

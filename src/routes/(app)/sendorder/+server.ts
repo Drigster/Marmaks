@@ -4,6 +4,9 @@ import { z } from 'zod';
 import { writeFileSync, mkdirSync } from 'fs';
 import { ORIGIN, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USER } from '$env/static/private';
 import nodemailer, { type Transporter } from 'nodemailer';
+import { db } from '$lib/database/db.js';
+import { settings } from '$lib/database/schema.js';
+import { eq, or } from 'drizzle-orm';
 
 let transporter: Transporter;
 try {
@@ -32,6 +35,14 @@ try {
 			}
 		});
 	}
+
+	transporter.verify(function (error, success) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('MailServer is ready to take messages');
+		}
+	});
 } catch (error) {
 	console.log(error);
 }
@@ -43,47 +54,44 @@ async function sendOrder(
 	message: string,
 	files: string[]
 ) {
-	await transporter.sendMail(
-		{
-			from: `"МАРМАКС" <${SMTP_USER}>`,
-			to: `${email}`,
-			subject: 'Ваш заказ получен!',
-			text: `Здравствуйте ${name}.
-		Мы получили ваш заказ. С вами свяжутся в скорое время. Если у вас есть дополнительные вопросы пишите нам на почту: или звоните по телефону: .
+	const settingsList = await db
+		.select()
+		.from(settings)
+		.where(or(eq(settings.key, 'phone1'), eq(settings.key, 'email')));
+
+	const userMailStatus = await transporter.sendMail({
+		from: `"МАРМАКС" <${SMTP_USER}>`,
+		to: `${email}`,
+		subject: 'Ваш заказ получен!',
+		text: `Здравствуйте ${name}.
+		Мы получили ваш заказ. С вами свяжутся в скорое время. Если у вас есть дополнительные вопросы пишите нам на почту: ${settingsList.find((e) => (e.key = 'email'))?.value} или звоните по телефону: ${settingsList.find((e) => (e.key = 'phone1'))?.value}.
 		Дубликат вашего заказа: 
 		\tИмя: ${name}
 		\tТелефон: ${phone}
 		\tПочта: ${email}
 		\tСообщение: ${message}
 		\tСписок файлов: ${files.join(', ')}`
-		},
-		(err, info) => {
-			console.log(JSON.stringify(err));
+	});
+	if (userMailStatus.accepted.length == 0) {
+		console.log(JSON.stringify(userMailStatus));
+		return false;
+	}
 
-			if (process.env.NODE_ENV === 'development' && info) {
-				console.log('CustomerEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
-			}
-		}
-	);
-	await transporter.sendMail(
-		{
-			from: `"МАРМАКС" <${SMTP_USER}>`,
-			to: `${email}`,
-			subject: 'Получен новый заказ!',
-			text: `\tИмя: ${name}
+	const internalMailStatus = await transporter.sendMail({
+		from: `"МАРМАКС" <${SMTP_USER}>`,
+		to: `${email}`,
+		subject: 'Получен новый заказ!',
+		text: `\tИмя: ${name}
 		\tТелефон: ${phone}
 		\tПочта: ${email}
 		\tСообщение: ${message}
 		\tСписок файлов: ${files.join(', ')}`
-		},
-		(err, info) => {
-			console.log(JSON.stringify(err));
+	});
+	if (internalMailStatus.accepted.length == 0) {
+		console.log(JSON.stringify(userMailStatus));
+	}
 
-			if (process.env.NODE_ENV === 'development' && info) {
-				console.log('InternalEmail Preview URL: ' + nodemailer.getTestMessageUrl(info));
-			}
-		}
-	);
+	return true;
 }
 
 export const _orderSchema = z.object({
@@ -114,7 +122,7 @@ export async function POST({ request }) {
 		}
 	}
 
-	sendOrder(
+	const status = sendOrder(
 		orderForm.data.email,
 		orderForm.data.name,
 		orderForm.data.phone,
@@ -123,6 +131,10 @@ export async function POST({ request }) {
 	);
 
 	orderForm.data.files = undefined;
+
+	if (!status) {
+		return actionResult('error', 'Error sending email', 500);
+	}
 
 	return actionResult('success', { orderForm }, 200);
 }

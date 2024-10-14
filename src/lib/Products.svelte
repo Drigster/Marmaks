@@ -210,7 +210,11 @@
 	}
 
 	@media (max-width: 1024px) {
+		.slider {
+			--active_width: 90vw;
+		}
 		.product {
+			padding: 1rem;
 			grid-template-columns: 1fr;
 			justify-items: center;
 		}

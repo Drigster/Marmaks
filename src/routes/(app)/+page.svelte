@@ -1,10 +1,14 @@
-<script>
+<script lang="ts">
 	import AboutUsInfo from '$lib/AboutUsInfo.svelte';
 	import Suppliers from '$lib/Suppliers.svelte';
 	import Categories from '$lib/Products.svelte';
 	import Hero from '$lib/Hero.svelte';
 
 	let { data } = $props();
+
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
+	const flash = getFlash(page);
 </script>
 
 <svelte:head>

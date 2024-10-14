@@ -15,6 +15,10 @@
 	import spiner from '$lib/assets/spiner.svg';
 	import Dropzone from 'svelte-file-dropzone';
 	import { ErrorWarning } from '@o7/icon/remix';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
+
+	const flash = getFlash(page);
 
 	let { data }: { data: PageData } = $props();
 
@@ -28,7 +32,11 @@
 		onUpdated({ form }) {
 			if (form.valid) {
 				createModal = false;
+				$flash = { type: 'success', message: form.message };
 			}
+		},
+		onError({ result }) {
+			$flash = { type: 'error', message: result.error.message };
 		},
 		delayMs: 250,
 		timeoutMs: 8000
@@ -39,7 +47,11 @@
 		onUpdated({ form }) {
 			if (form.valid) {
 				deleteModal = false;
+				$flash = { type: 'success', message: form.message };
 			}
+		},
+		onError({ result }) {
+			$flash = { type: 'error', message: result.error.message };
 		},
 		delayMs: 250,
 		timeoutMs: 8000
@@ -55,7 +67,11 @@
 		onUpdated({ form }) {
 			if (form.valid) {
 				editModal = false;
+				$flash = { type: 'success', message: form.message };
 			}
+		},
+		onError({ result }) {
+			$flash = { type: 'error', message: result.error.message };
 		},
 		delayMs: 250,
 		timeoutMs: 8000
@@ -91,65 +107,63 @@
 	);
 </script>
 
-<div class="p-10">
-	<div class="flex justify-between mb-2">
-		<Label class="space-y-2 max-w-96 w-full">
-			<Input type="email" placeholder="Поиск по имени" size="md" let:props>
-				<Search slot="left" />
-				<CloseButton
-					slot="right"
-					class={searchTerm.length > 0 ? '' : 'hidden'}
-					onclick={() => {
-						searchTerm = '';
-					}}
-				/>
-				<input type="text" {...props} bind:value={searchTerm} />
-			</Input>
-		</Label>
-		<Button class="bg-primary" on:click={() => (createModal = true)}>Добавить</Button>
+<div class="flex justify-between mb-2">
+	<Label class="space-y-2 max-w-96 w-full">
+		<Input type="email" placeholder="Поиск по имени" size="md" let:props>
+			<Search slot="left" />
+			<CloseButton
+				slot="right"
+				class={searchTerm.length > 0 ? '' : 'hidden'}
+				onclick={() => {
+					searchTerm = '';
+				}}
+			/>
+			<input type="text" {...props} bind:value={searchTerm} />
+		</Input>
+	</Label>
+	<Button class="bg-primary" on:click={() => (createModal = true)}>Добавить</Button>
+</div>
+<div class="table rounded-xl">
+	<div class="row header text-xs font-semibold uppercase">
+		<span class="cell">ID</span>
+		<span class="cell">Картинка</span>
+		<span class="cell">Название</span>
+		<span class="cell">Действия</span>
 	</div>
-	<div class="table rounded-xl">
-		<div class="row header text-xs font-semibold uppercase">
-			<span class="cell">ID</span>
-			<span class="cell">Картинка</span>
-			<span class="cell">Название</span>
-			<span class="cell">Действия</span>
+	{#each filteredItems as item}
+		<div class="row">
+			<span class="cell">{item.id}</span>
+			<span class="cell image"
+				><img
+					class="object-contain h-[revert-layer] max-w-none"
+					height="64"
+					width="64"
+					src="/files/{item.imageFilename}"
+					alt={item.name}
+				/></span
+			>
+			<span class="cell">{item.name}</span>
+			<span class="cell">
+				<Button outline={false} class="!p-2 flex mx-auto"><More2 class="text-primary" /></Button>
+				<Dropdown>
+					<DropdownItem
+						on:click={() => {
+							editModal = true;
+							selectedItem = item.id;
+						}}>Изменить</DropdownItem
+					>
+					<DropdownDivider />
+					<DropdownItem
+						class="text-red-700"
+						on:click={() => {
+							deleteModal = true;
+							selectedItem = item.id;
+						}}>Удалить</DropdownItem
+					>
+				</Dropdown>
+			</span>
 		</div>
-		{#each filteredItems as item}
-			<div class="row">
-				<span class="cell">{item.id}</span>
-				<span class="cell image"
-					><img
-						class="object-contain h-[revert-layer] max-w-none"
-						height="64"
-						width="64"
-						src="/files/{item.imageFilename}"
-						alt={item.name}
-					/></span
-				>
-				<span class="cell">{item.name}</span>
-				<span class="cell">
-					<Button outline={false} class="!p-2 flex mx-auto"><More2 class="text-primary" /></Button>
-					<Dropdown>
-						<DropdownItem
-							on:click={() => {
-								editModal = true;
-								selectedItem = item.id;
-							}}>Изменить</DropdownItem
-						>
-						<DropdownDivider />
-						<DropdownItem
-							class="text-red-700"
-							on:click={() => {
-								deleteModal = true;
-								selectedItem = item.id;
-							}}>Удалить</DropdownItem
-						>
-					</Dropdown>
-				</span>
-			</div>
-		{/each}
-	</div>
+	{/each}
 </div>
 
 <Modal
@@ -183,7 +197,7 @@
 			name="image"
 			on:drop={handleFilesSelect}
 			multiple={false}
-			accept=".png, .svg, .jpg, .gif"
+			accept=".png, .svg, .jpg"
 		>
 			<svg
 				aria-hidden="true"
@@ -204,9 +218,7 @@
 					<span class="font-semibold">Нажмите чтобы выбрать</span> или перетащите
 					<span class="font-semibold">картинку</span>
 				</p>
-				<p class="text-xs text-gray-500 dark:text-gray-400">
-					SVG, PNG, JPG or GIF (MAX. 800x400px)
-				</p>
+				<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG или JPG</p>
 			{:else}
 				<p>
 					{#each $file as fileItem, i}
@@ -307,7 +319,7 @@
 			name="image"
 			on:drop={handleFilesSelect}
 			multiple={false}
-			accept=".png, .svg, .jpg, .gif"
+			accept=".png, .svg, .jpg"
 		>
 			<svg
 				aria-hidden="true"
@@ -328,9 +340,7 @@
 					<span class="font-semibold">Нажмите чтобы выбрать</span> или перетащите
 					<span class="font-semibold">новую картинку</span>
 				</p>
-				<p class="text-xs text-gray-500 dark:text-gray-400">
-					SVG, PNG, JPG or GIF (MAX. 800x400px)
-				</p>
+				<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG или JPG</p>
 			{:else}
 				<p>
 					{#each $file as fileItem, i}

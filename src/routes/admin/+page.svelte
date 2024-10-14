@@ -5,6 +5,10 @@
 	import spiner from '$lib/assets/spiner.svg';
 	import type { PageData } from './$types';
 	import { Button } from 'flowbite-svelte';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
+	
+	const flash = getFlash(page);
 
 	let { data }: { data: PageData } = $props();
 
