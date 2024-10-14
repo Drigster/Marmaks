@@ -48,11 +48,11 @@
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2 font-bold">
 				<Telegram2 class="mx-auto" size="32" />
-				<a class="my-auto" href={settingDict.telegram}>Телеграм</a>
+				<a class="my-auto" href={settingDict.telegram}>Напишите нам в Telegram</a>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2 font-bold">
 				<Whatsapp class="mx-auto" size="32" />
-				<a class="my-auto" href={settingDict.whatsapp}>Ватсап</a>
+				<a class="my-auto" href={settingDict.whatsapp}>Напишите нам в WhatsApp</a>
 			</div>
 		</div>
 	</div>

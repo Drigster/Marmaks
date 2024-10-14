@@ -27,8 +27,8 @@ const defaultSettings = [
 	['phone2', 'Телефон 2', ''],
 	['email', 'Почта', ''],
 	['adress', 'Адрес', ''],
-	['telegram', 'Напишите нам в Telegram', 'https://telegram.org/'],
-	['whatsapp', 'Напишите нам в WhatsApp', 'https://whatsapp.com/'],
+	['telegram', 'Телеграм', 'https://telegram.org/'],
+	['whatsapp', 'Ватсап', 'https://whatsapp.com/'],
 	['inn', 'ИНН', ''],
 	['kpp', 'КПП', ''],
 	['ogrn', 'ОГРН', '']
