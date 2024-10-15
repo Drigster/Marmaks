@@ -24,6 +24,12 @@
 		if (active_index <= 0) return;
 		active_index--;
 	}
+
+	function set(index: number) {
+		if (index > data.certificateList.length - 1) return;
+		if (index < 0) return;
+		active_index = index;
+	}
 </script>
 
 <svelte:head>
@@ -33,12 +39,12 @@
 	class="min-h-screen bg-center bg-no-repeat bg-cover bg-blue-overlay flex"
 	style="background-image: url({backgroundImg1})"
 >
-	<Button class="absolute left-16 top-16 text-xl font-semibold" href="/"
+	<Button class="absolute left-16 top-16 text-xl font-semibold z-50" href="/"
 		><ArrowLeftS size="32" />Вернутся на главную</Button
 	>
-	<div class="mx-auto p-4 h-screen relative">
+	<div class="mx-auto p-4 h-screen relative flex">
 		<img
-			class="h-full w-auto"
+			class="h-auto w-full my-auto lg:h-full lg:w-auto"
 			src="/files/{data.certificateList[active_index].imageFilename}"
 			alt=""
 			bind:this={image}
@@ -51,6 +57,16 @@
 			class:hidden={active_index >= data.certificateList.length - 1}
 			onclick={next}><ArrowRightS size="32" /></button
 		>
+		<div class="absolute left-0 right-0 bottom-0 mx-auto flex place-content-center mb-6">
+			{#each data.certificateList as _, i}
+				<button
+					class="w-4 h-4 m-1 border-2 bg-white border-white rounded-full text-white"
+					class:!bg-gray-700={active_index == i}
+					onclick={() => set(i)}
+				>
+				</button>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -68,10 +84,10 @@
 	}
 
 	.left-button {
-		right: 100%;
+		left: 0;
 	}
 
 	.right-button {
-		left: 100%;
+		right: 0;
 	}
 </style>

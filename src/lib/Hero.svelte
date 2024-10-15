@@ -1,6 +1,6 @@
 <script lang="ts">
 	import HeroImage from '$lib/assets/hero_image.png';
-	import { Button, Helper, Label, Modal } from 'flowbite-svelte';
+	import { Button, Modal } from 'flowbite-svelte';
 	import { filesProxy, superForm } from 'sveltekit-superforms';
 	import spiner from '$lib/assets/spiner.svg';
 	import { getFlash } from 'sveltekit-flash-message';

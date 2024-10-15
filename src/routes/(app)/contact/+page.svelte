@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { Breadcrumb, BreadcrumbItem, Button } from 'flowbite-svelte';
 	import { Time, Phone, Mail, MapPin, Telegram2, Whatsapp, FileCopy } from '@o7/icon/remix';
+	import { getFlash } from 'sveltekit-flash-message';
+	import { page } from '$app/stores';
 
 	import type { PageData } from './$types';
 	import type { Settings } from '$lib/database/db';
+	import { copy } from '$lib/util';
+
+	const flash = getFlash(page);
 	let { data }: { data: PageData } = $props();
 	let settingDict: Settings = data.settingDict;
 </script>
@@ -23,36 +28,49 @@
 			<!-- <div class="grid grid-cols-subgrid col-span-2">
 				<Time class="mx-auto" size="32" />
 				<span class="my-auto flex"
-					>{settingDict.working_hours}<FileCopy class="pl-1" size="20" /></span
+					>{settingDict.working_hours}<FileCopy class="pl-1" size="18" /></span
 				>
 			</div> -->
 			<div class="grid grid-cols-subgrid col-span-2">
 				<Time class="mx-auto" size="32" />
-				<span class="my-auto">{settingDict.working_hours}</span>
+				<button
+					class="my-auto flex"
+					onclick={(event) => copy(event, settingDict.working_hours, flash)}
+				>
+					{settingDict.working_hours}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<Phone class="mx-auto" size="32" />
-				<span class="my-auto">{settingDict.phone1}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.phone1, flash)}>
+					{settingDict.phone1}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<Phone class="mx-auto" size="32" />
-				<span class="my-auto">{settingDict.phone2}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.phone2, flash)}>
+					{settingDict.phone2}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<Mail class="mx-auto" size="32" />
-				<span class="my-auto">{settingDict.email}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.email, flash)}>
+					{settingDict.email}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<MapPin class="mx-auto" size="32" />
-				<span class="my-auto">{settingDict.adress}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.adress, flash)}>
+					{settingDict.adress}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
-			<div class="grid grid-cols-subgrid col-span-2 font-bold">
+			<div class="grid grid-cols-subgrid col-span-2 font-bold hover:underline">
 				<Telegram2 class="mx-auto" size="32" />
-				<a class="my-auto" href={settingDict.telegram}>Напишите нам в Telegram</a>
+				<a class="my-auto" href={settingDict.telegram} target="_blank">Напишите нам в Telegram</a>
 			</div>
-			<div class="grid grid-cols-subgrid col-span-2 font-bold">
+			<div class="grid grid-cols-subgrid col-span-2 font-bold hover:underline">
 				<Whatsapp class="mx-auto" size="32" />
-				<a class="my-auto" href={settingDict.whatsapp}>Напишите нам в WhatsApp</a>
+				<a class="my-auto" href={settingDict.whatsapp} target="_blank">Напишите нам в WhatsApp</a>
 			</div>
 		</div>
 	</div>
@@ -61,19 +79,27 @@
 			<span class="text-center text-2xl font-semibold col-span-2">Реквизиты</span>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<MapPin class="mx-auto" size="32" />
-				<span class="my-auto">{settingDict.adress}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.adress, flash)}>
+					{settingDict.adress}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<span class="my-auto font-bold mx-auto">ИНН</span>
-				<span class="my-auto">{settingDict.inn}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.inn, flash)}>
+					{settingDict.inn}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<span class="my-auto font-bold mx-auto">КПП</span>
-				<span class="my-auto">{settingDict.kpp}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.kpp, flash)}>
+					{settingDict.kpp}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 			<div class="grid grid-cols-subgrid col-span-2">
 				<span class="my-auto font-bold mx-auto">ОГРН</span>
-				<span class="my-auto">{settingDict.ogrn}</span>
+				<button class="my-auto flex" onclick={(event) => copy(event, settingDict.ogrn, flash)}>
+					{settingDict.ogrn}<FileCopy class="pl-1" size="18" />
+				</button>
 			</div>
 		</div>
 		<div class="pt-4">

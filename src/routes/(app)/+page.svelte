@@ -5,10 +5,6 @@
 	import Hero from '$lib/Hero.svelte';
 
 	let { data } = $props();
-
-	import { getFlash } from 'sveltekit-flash-message';
-	import { page } from '$app/stores';
-	const flash = getFlash(page);
 </script>
 
 <svelte:head>

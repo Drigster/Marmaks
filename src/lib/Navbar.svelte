@@ -2,25 +2,16 @@
 	import LogoWhite from '$lib/assets/logo.svg';
 	import LogoSmall from '$lib/assets/logoSmall.svg';
 	import { Dropdown, DropdownItem } from 'flowbite-svelte';
-	import { clickOutside } from './util';
+	import { clickOutside, copy } from './util';
 	import { Phone, Bars3, PhoneArrowUpRight, Envelope } from '@o7/icon/heroicons';
 	import { getFlash } from 'sveltekit-flash-message';
 	import { page } from '$app/stores';
+	import { FileCopy } from '@o7/icon/remix';
 
 	const flash = getFlash(page);
 
 	let { phone, phone2, email }: { phone: string; phone2: string; email: string } = $props();
 
-	function copy(event: MouseEvent, text: string) {
-		event.stopPropagation();
-		const clickedElement = event.target as HTMLElement;
-		if (clickedElement == null) {
-			return;
-		}
-
-		navigator.clipboard.writeText(text);
-		$flash = { type: 'info', message: 'Скопировано' };
-	}
 	let navToggle: HTMLInputElement;
 </script>
 
@@ -48,7 +39,7 @@
 					<button
 						class="my-tooltip my-tooltip-bottom flex gap-2 nav-link mx-auto"
 						data-tooltip="Скопировать!"
-						onclick={(event) => copy(event, phone)}
+						onclick={(event) => copy(event, phone, flash)}
 					>
 						<Phone class="mx-auto" />
 						<span class="my-auto">
@@ -58,7 +49,7 @@
 					<button
 						class="my-tooltip my-tooltip-bottom flex gap-2 nav-link mx-auto"
 						data-tooltip="Скопировать!"
-						onclick={(event) => copy(event, phone2)}
+						onclick={(event) => copy(event, phone2, flash)}
 					>
 						<Phone class="mx-auto" />
 						<span class="my-auto">
@@ -68,7 +59,7 @@
 					<button
 						class="my-tooltip flex gap-2 nav-link mx-auto"
 						data-tooltip="Скопировать!"
-						onclick={(event) => copy(event, email)}
+						onclick={(event) => copy(event, email, flash)}
 					>
 						<Envelope class="mx-auto" />
 						<span class="my-auto">
@@ -82,38 +73,26 @@
 			<button class="nav-item nav-contact-button"><PhoneArrowUpRight size="32" /></button>
 			<Dropdown class="text-primary">
 				<DropdownItem>
-					<button
-						class="my-tooltip my-tooltip-bottom flex gap-2"
-						data-tooltip="Скопировать!"
-						onclick={(event) => copy(event, phone)}
-					>
+					<button class="flex gap-2" onclick={(event) => copy(event, phone, flash)}>
 						<Phone class="mx-auto" size="32" />
-						<span class="my-auto">
-							{phone}
+						<span class="my-auto flex">
+							{phone}<FileCopy class="pl-1" size="16" />
 						</span>
 					</button>
 				</DropdownItem>
 				<DropdownItem>
-					<button
-						class="my-tooltip flex gap-2"
-						data-tooltip="Скопировать!"
-						onclick={(event) => copy(event, phone2)}
-					>
+					<button class="flex gap-2" onclick={(event) => copy(event, phone2, flash)}>
 						<Phone class="mx-auto" size="32" />
-						<span class="my-auto">
-							{phone2}
+						<span class="my-auto flex">
+							{phone2}<FileCopy class="pl-1" size="16" />
 						</span>
 					</button>
 				</DropdownItem>
 				<DropdownItem>
-					<button
-						class="my-tooltip flex gap-2"
-						data-tooltip="Скопировать!"
-						onclick={(event) => copy(event, email)}
-					>
+					<button class="flex gap-2" onclick={(event) => copy(event, email, flash)}>
 						<Envelope class="mx-auto" size="32" />
-						<span class="my-auto">
-							{email}
+						<span class="my-auto flex">
+							{email}<FileCopy class="pl-1" size="16" />
 						</span>
 					</button>
 				</DropdownItem>

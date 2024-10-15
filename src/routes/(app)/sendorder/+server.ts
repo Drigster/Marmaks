@@ -36,7 +36,7 @@ try {
 		});
 	}
 
-	transporter.verify(function (error, success) {
+	transporter.verify(function (error) {
 		if (error) {
 			console.log(error);
 		} else {
@@ -70,7 +70,7 @@ async function sendOrder(
 		\tТелефон: ${phone}
 		\tПочта: ${email}
 		\tСообщение: ${message}
-		\tСписок файлов: ${files.join(', ')}`
+		\tСписок файлов: \n\t${files.join('\n\t')}`
 	});
 	if (userMailStatus.accepted.length == 0) {
 		console.log(JSON.stringify(userMailStatus));
@@ -89,6 +89,10 @@ async function sendOrder(
 	});
 	if (internalMailStatus.accepted.length == 0) {
 		console.log(JSON.stringify(userMailStatus));
+	}
+
+	if (process.env.NODE_ENV === 'development') {
+		console.log(nodemailer.getTestMessageUrl(internalMailStatus));
 	}
 
 	return true;
