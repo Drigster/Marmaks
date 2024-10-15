@@ -75,7 +75,6 @@
 	autoclose={false}
 	outsideclose
 >
-	<SuperDebug data={orderForm} />
 	<form
 		class="flex flex-col gap-6"
 		method="POST"
