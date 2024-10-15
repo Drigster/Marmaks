@@ -1,7 +1,7 @@
 <script lang="ts">
 	import HeroImage from '$lib/assets/hero_image.png';
 	import { Button, Modal } from 'flowbite-svelte';
-	import { filesProxy, superForm } from 'sveltekit-superforms';
+	import SuperDebug, { filesProxy, superForm } from 'sveltekit-superforms';
 	import spiner from '$lib/assets/spiner.svg';
 	import { getFlash } from 'sveltekit-flash-message';
 	import { page } from '$app/stores';
@@ -32,11 +32,10 @@
 		timeoutMs: 8000
 	});
 
-	const file = filesProxy(orderForm, 'files');
+	const files = filesProxy(orderForm, 'files');
 
 	function handleFilesSelect(e: { detail: { acceptedFiles: any } }) {
-		$file = e.detail.acceptedFiles;
-		console.log($file);
+		$files = e.detail.acceptedFiles;
 	}
 
 	let orderModal = $state(false);
@@ -76,6 +75,7 @@
 	autoclose={false}
 	outsideclose
 >
+	<SuperDebug data={orderForm} />
 	<form
 		class="flex flex-col gap-6"
 		method="POST"
@@ -142,15 +142,15 @@
 						d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
 					></path></svg
 				>
-				{#if $file.length === 0}
+				{#if $files.length === 0}
 					<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
 						<span class="font-semibold">Нажмите чтобы выбрать</span> или перетащите
 						<span class="font-semibold">файл</span>
 					</p>
-					<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG или JPG</p>
+					<p class="text-xs text-gray-500 dark:text-gray-400">(MAX: 100Mb)</p>
 				{:else}
 					<p>
-						{#each $file as fileItem, i}
+						{#each $files as fileItem, i}
 							{#if i != 0},{/if}
 							{fileItem.name}
 						{/each}

@@ -77,9 +77,11 @@ async function sendOrder(
 		return false;
 	}
 
+	console.log(userMailStatus);
+
 	const internalMailStatus = await transporter.sendMail({
 		from: `"МАРМАКС" <${SMTP_USER}>`,
-		to: `${email}`,
+		to: `${SMTP_USER}`,
 		subject: 'Получен новый заказ!',
 		text: `\tИмя: ${name}
 		\tТелефон: ${phone}
@@ -103,14 +105,18 @@ export const _orderSchema = z.object({
 	phone: z.string(),
 	email: z.string().email(),
 	message: z.string(),
-	files: z.instanceof(File, { message: 'Please upload a file.' }).array().optional()
+	files: z
+		.instanceof(File, { message: 'Please upload a file.' })
+		.refine((f) => f.size < 100_000_000, 'Максимальный размер файла 100Mb.')
+		.array()
+		.optional()
 });
 
 export async function POST({ request }) {
 	const orderForm = await superValidate(request, zod(_orderSchema));
 
 	if (!orderForm.valid) {
-		actionResult('failure', { orderForm }, 400);
+		return actionResult('failure', { orderForm });
 	}
 
 	const dirName = Date.now() + '_' + Math.round(Math.random() * 10000);
@@ -126,7 +132,7 @@ export async function POST({ request }) {
 		}
 	}
 
-	const status = sendOrder(
+	const status = await sendOrder(
 		orderForm.data.email,
 		orderForm.data.name,
 		orderForm.data.phone,
@@ -137,8 +143,8 @@ export async function POST({ request }) {
 	orderForm.data.files = undefined;
 
 	if (!status) {
-		return actionResult('error', 'Error sending email', 500);
+		return actionResult('error', 'Error sending email');
 	}
 
-	return actionResult('success', { orderForm }, 200);
+	return actionResult('success', { orderForm });
 }
