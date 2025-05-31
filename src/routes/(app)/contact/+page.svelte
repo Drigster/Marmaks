@@ -111,7 +111,7 @@
 	<div class="map-block col-span-4 shadow-xl rounded-2xl">
 		<iframe
 			title="Карта"
-			src="https://yandex.ru/map-widget/v1/?ll=37.696482%2C55.713274&mode=routes&rtext=~55.713549%2C37.696400&rtt=auto&ruri=~&source=serp_navig&z=19.28"
+			src="https://yandex.ru/map-widget/v1/?ll=37.730473%2C55.748906&mode=whatshere&whatshere%5Bpoint%5D=37.729937%2C55.749103&whatshere%5Bzoom%5D=17&z=19.6"
 			class="h-full w-full rounded-2xl"
 			frameborder="1"
 			allowfullscreen={true}
