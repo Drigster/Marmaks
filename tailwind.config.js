@@ -1,4 +1,5 @@
 import flowbitePlugin from 'flowbite/plugin';
+import tailwindTypographyPlugin from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -17,7 +18,7 @@ const config = {
 			}
 		}
 	},
-	plugins: [flowbitePlugin]
+	plugins: [flowbitePlugin, tailwindTypographyPlugin]
 };
 
 export default config;

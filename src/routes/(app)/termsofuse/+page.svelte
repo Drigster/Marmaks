@@ -1,5 +1,6 @@
 <script lang="ts">
-	import SvelteMarkdown from 'svelte-markdown';
+	import { marked } from 'marked';
+
 	const source = `
 # Пользовательское Соглашение
 
@@ -71,4 +72,10 @@
 При изменении соглашения, в некоторых случаях, администрация может оповестить пользователей удобным для нее способом.`;
 </script>
 
-<SvelteMarkdown {source} />
+<svelte:head>
+	<title>Пользовательское Соглашение | Мармакс</title>
+</svelte:head>
+
+<div class="prose max-w-none">
+	{@html marked(source)}
+</div>
